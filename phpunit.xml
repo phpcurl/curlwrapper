@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<phpunit
+    backupGlobals="true"
+    backupStaticAttributes="true"
+    colors="true"
+    convertErrorsToExceptions="true"
+    convertNoticesToExceptions="true"
+    convertWarningsToExceptions="true"
+    stopOnFailure="false"
+    verbose="true"
+    syntaxCheck="true">
+    <logging>
+		<log type="coverage-html" target="./test/coverage" charset="UTF-8"
+            yui="true" highlight="false"
+            lowUpperBound="70" highLowerBound="90"/>
+    </logging>
+    <testsuites>
+        <testsuite name="Main Test Suite">
+            <directory>./test</directory>
+            <exclude>./autoload.php</exclude>
+        </testsuite>
+    </testsuites>
+</phpunit>
