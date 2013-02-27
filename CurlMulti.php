@@ -1,12 +1,10 @@
 <?php
-namespace F3\CurlWrapper;
-
 /**
  * OOP wrapper for curl_multi_* fuctions
  *
  * Functional to OOP style mapping
  *
- * curl_multi_init();                           |   $cm = CurlMulti::factory();
+ * curl_multi_init();                           |   $cm = F3_CurlMulti::factory();
  * curl_multi_close($h);                        |   unset($cm);
  * $i = curl_multi_add_handle($mh, $ch);        |   $i = $cm->add($curl);
  * $i = curl_multi_remove_handle($mh, $ch);     |   $i = $cm->remove($curl);
@@ -21,7 +19,7 @@ namespace F3\CurlWrapper;
  * @author Alexey Karapetov <karapetov@gmail.com>
  * @license http://opensource.org/licenses/mit-license.php The MIT License (MIT)
  */
-class CurlMulti
+class F3_CurlMulti
 {
     /**
      * curl handle
@@ -51,10 +49,10 @@ class CurlMulti
     /**
      * @see curl_multi_add_handle()
      *
-     * @param Curl $curl Добавляемый объект
+     * @param F3_Curl $curl Добавляемый объект
      * @return int
      */
-    public function add(Curl $curl)
+    public function add(F3_Curl $curl)
     {
         return curl_multi_add_handle($this->handle, $curl->getHandle());
     }
@@ -75,7 +73,7 @@ class CurlMulti
      *
      * @return string
      */
-    public function getContent(Curl $curl)
+    public function getContent(F3_Curl $curl)
     {
         return curl_multi_getcontent($curl->getHandle());
     }
@@ -94,10 +92,10 @@ class CurlMulti
     /**
      * @see curl_multi_remove_handle()
      *
-     * @param Curl $curl Handle to remove
+     * @param F3_Curl $curl Handle to remove
      * @return int
      */
-    public function remove(Curl $curl)
+    public function remove(F3_Curl $curl)
     {
         return curl_multi_remove_handle($this->handle, $curl->getHandle());
     }

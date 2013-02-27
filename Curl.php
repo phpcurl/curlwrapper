@@ -1,21 +1,17 @@
 <?php
-namespace F3\CurlWrapper;
-use RuntimeException,
-    InvalidArgumentException;
-
 /**
  * OOP wrapper for curl_* functions
  *
  * Functional and OOP style mapping:
  *
- * curl_init($url);             |   $curl = new Curl($url);
+ * curl_init($url);             |   $curl = new F3_Curl($url);
  * curl_close($h);              |   unset($curl);
  * $e = curl_errno($h);         |   $e = $curl->errno();
  * $e = curl_error($h);         |   $e = $curl->error();
  * $i = curl_getinfo($h, $o);   |   $i = $curl->getInfo($o);
  * curl_setopt($opt, $val); ;   |   $curl->setOpt($opt, $val);
  * curl_setopt_array($array);   |   $curl->setOptArray($array); or $curl->setOpt($array)
- * curl_version($age)           |   Curl::version($age);
+ * curl_version($age)           |   F3_Curl::version($age);
  * $h2 = curl_copy_handle($h);  |   $curl2 = clone($curl);
  * curl_exec($h);               |   $curl->exec();
  *
@@ -25,7 +21,7 @@ use RuntimeException,
  * @author Alexey Karapetov <karapetov@gmail.com>
  * @license http://opensource.org/licenses/mit-license.php The MIT License (MIT)
  */
-class Curl
+class F3_Curl
 {
     /**
      * curl handle

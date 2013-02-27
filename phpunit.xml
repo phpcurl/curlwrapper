@@ -17,7 +17,6 @@
     <testsuites>
         <testsuite name="Main Test Suite">
             <directory>./test</directory>
-            <exclude>./autoload.php</exclude>
         </testsuite>
     </testsuites>
 </phpunit>
