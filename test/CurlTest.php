@@ -1,5 +1,5 @@
 <?php
-namespace CurlWrapper;
+namespace F3\CurlWrapper;
 
 use PHPUnit_Framework_TestCase;
 require_once(dirname(__DIR__) . DIRECTORY_SEPARATOR . 'Curl.php');

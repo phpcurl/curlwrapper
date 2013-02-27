@@ -1,5 +1,5 @@
 <?php
-namespace CurlWrapper;
+namespace F3\CurlWrapper;
 
 /**
  * OOP wrapper for curl_multi_* fuctions

@@ -1,5 +1,5 @@
 <?php
-namespace CurlWrapper;
+namespace F3\CurlWrapper;
 use RuntimeException,
     InvalidArgumentException;
 
