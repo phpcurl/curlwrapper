@@ -1,5 +1,9 @@
 <?php
+namespace F3\CurlWrapper\Test;
+
 require_once(dirname(__DIR__) . DIRECTORY_SEPARATOR . 'Curl.php');
+
+use F3\CurlWrapper\Curl;
 
 /**
  * Only some indirect tests are available due to use of system functions.
@@ -10,13 +14,13 @@ require_once(dirname(__DIR__) . DIRECTORY_SEPARATOR . 'Curl.php');
  * @author Alexey Karapetov <karapetov@gmail.com>
  * @license http://opensource.org/licenses/mit-license.php The MIT License (MIT)
  */
-class F3_CurlTest
-    extends PHPUnit_Framework_TestCase
+class CurlTest
+    extends \PHPUnit_Framework_TestCase
 {
     public function testHandlesShouldBeDifferent()
     {
-        $c1 = new F3_Curl();
-        $c2 = new F3_Curl();
+        $c1 = new Curl();
+        $c2 = new Curl();
         $this->assertNotEquals($c1->getHandle(), $c2->getHandle());
 
         $c3 = clone($c1);
@@ -25,10 +29,10 @@ class F3_CurlTest
 
     public function testGetInfoSetOpt()
     {
-        $c = new F3_Curl('http://localhost');
+        $c = new Curl('http://localhost');
         $this->assertEquals('http://localhost', $c->getInfo(CURLINFO_EFFECTIVE_URL));
 
-        $c = new F3_Curl();
+        $c = new Curl();
         $this->assertEquals('', $c->getInfo(CURLINFO_EFFECTIVE_URL));
         $c->setOpt(CURLOPT_URL, 'http://foo');
         $this->assertEquals('http://foo', $c->getInfo(CURLINFO_EFFECTIVE_URL));
@@ -38,7 +42,7 @@ class F3_CurlTest
 
     public function testGetVersion()
     {
-        $this->assertEquals(curl_version(), F3_Curl::version());
+        $this->assertEquals(curl_version(), Curl::version());
     }
 
     /**
@@ -48,7 +52,7 @@ class F3_CurlTest
      */
     public function testExecInvalidAttemptsCount()
     {
-        $c = new F3_Curl();
+        $c = new Curl();
         $c->exec(-42);
     }
 
@@ -58,7 +62,7 @@ class F3_CurlTest
         curl_exec($h);
         $expectedError = curl_error($h);
 
-        $c = new F3_Curl();
+        $c = new Curl();
         $c->exec();
         $this->assertEquals(CURLE_URL_MALFORMAT, $c->errno());
         $this->assertEquals($expectedError, $c->error());
@@ -69,7 +73,7 @@ class F3_CurlTest
      */
     public function testExecException()
     {
-        $c = new F3_Curl();
+        $c = new Curl();
         $c->exec(1, true);
     }
 }

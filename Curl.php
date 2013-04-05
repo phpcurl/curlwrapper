@@ -1,4 +1,5 @@
 <?php
+namespace F3\CurlWrapper;
 /**
  * OOP wrapper for curl_* functions
  *
@@ -21,7 +22,7 @@
  * @author Alexey Karapetov <karapetov@gmail.com>
  * @license http://opensource.org/licenses/mit-license.php The MIT License (MIT)
  */
-class F3_Curl
+class Curl
 {
     /**
      * curl handle
@@ -99,7 +100,7 @@ class F3_Curl
         $attempts = (int) $attempts;
         if ($attempts < 1)
         {
-            throw new InvalidArgumentException(sprintf('Attempts count is not positive: %d', $attempts));
+            throw new \InvalidArgumentException(sprintf('Attempts count is not positive: %d', $attempts));
         }
         $i = 0;
         while ($i++ < $attempts)
@@ -112,7 +113,7 @@ class F3_Curl
         }
         if ($useException && (false === $result))
         {
-            throw new RuntimeException(sprintf('Error "%s" after %d attempt(s)', $this->error(), $attempts), $this->errno());
+            throw new \RuntimeException(sprintf('Error "%s" after %d attempt(s)', $this->error(), $attempts), $this->errno());
         }
         return $result;
     }

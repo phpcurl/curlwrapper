@@ -1,5 +1,9 @@
 <?php
+namespace F3\CurlWrapper\Test;
 require_once(dirname(__DIR__) . DIRECTORY_SEPARATOR . 'CurlMulti.php');
+
+use F3\CurlWrapper\Curl;
+use F3\CurlWrapper\CurlMulti;
 
 /**
  * CurlMultiTest
@@ -10,19 +14,19 @@ require_once(dirname(__DIR__) . DIRECTORY_SEPARATOR . 'CurlMulti.php');
  * @author Alexey Karapetov <karapetov@gmail.com>
  * @license http://opensource.org/licenses/mit-license.php The MIT License (MIT)
  */
-class F3_CurlMultiTest
-    extends PHPUnit_Framework_TestCase
+class CurlMultiTest
+    extends \PHPUnit_Framework_TestCase
 {
     public function testCtorDtor()
     {
-        $m = new F3_CurlMulti();
+        $m = new CurlMulti();
         unset($m);
     }
 
     public function testAddRemove()
     {
-        $m = new F3_CurlMulti();
-        $c = new F3_Curl();
+        $m = new CurlMulti();
+        $c = new Curl();
         $this->assertEquals(CURLM_OK, $m->add($c));
         $this->assertEquals(CURLM_OK, $m->remove($c));
         $this->assertEquals(CURLM_BAD_EASY_HANDLE, $m->remove($c));
@@ -30,30 +34,30 @@ class F3_CurlMultiTest
 
     public function testInfoRead()
     {
-        $m = new F3_CurlMulti();
+        $m = new CurlMulti();
         $this->assertFalse($m->infoRead($msgs));
         $this->assertNull($msgs);
     }
 
     public function testSelect()
     {
-		$m = new F3_CurlMulti();
+		$m = new CurlMulti();
 		// On failure, this function will return -1 on a select failure or timeout (from the underlying select system call).
         $this->assertEquals(-1, $m->select(0.01));
     }
 
     public function testGetContent()
     {
-        $m = new F3_CurlMulti();
-        $c = new F3_Curl();
+        $m = new CurlMulti();
+        $c = new Curl();
         $m->add($c);
         $this->assertEquals('', $m->getContent($c));
     }
 
     public function testExec()
     {
-        $m = new F3_CurlMulti();
-        $c = new F3_Curl();
+        $m = new CurlMulti();
+        $c = new Curl();
         $m->add($c);
         $this->assertEquals(CURLM_OK, $m->exec($running));
         $this->assertEquals(0, $running);
