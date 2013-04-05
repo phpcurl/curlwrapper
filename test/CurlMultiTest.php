@@ -1,6 +1,5 @@
 <?php
-namespace F3\CurlWrapper\Test;
-require_once(dirname(__DIR__) . DIRECTORY_SEPARATOR . 'CurlMulti.php');
+require_once(dirname(__DIR__) . '/src/F3/CurlWrapper/CurlMulti.php');
 
 use F3\CurlWrapper\Curl;
 use F3\CurlWrapper\CurlMulti;

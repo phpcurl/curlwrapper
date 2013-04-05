@@ -50,7 +50,7 @@ class CurlMulti
     /**
      * @see curl_multi_add_handle()
      *
-     * @param Curl $curl Добавляемый объект
+     * @param Curl $curl Curl object to add
      * @return int
      */
     public function add(Curl $curl)
@@ -104,7 +104,7 @@ class CurlMulti
     /**
      * @see curl_multi_select()
      *
-     * @param float $timeout Таймаут блокирования
+     * @param float $timeout Timeout
      * @return int
      */
     public function select($timeout = 1.0)
