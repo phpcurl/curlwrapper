@@ -12,8 +12,7 @@ use F3\CurlWrapper\Curl;
  * @author Alexey Karapetov <karapetov@gmail.com>
  * @license http://opensource.org/licenses/mit-license.php The MIT License (MIT)
  */
-class CurlTest
-    extends \PHPUnit_Framework_TestCase
+class CurlTest extends \PHPUnit_Framework_TestCase
 {
     public function testHandlesShouldBeDifferent()
     {
@@ -25,13 +24,13 @@ class CurlTest
         $this->assertNotEquals($c1->getHandle(), $c3->getHandle());
     }
 
-    public function testGetInfoSetOpt()
+    public function testSetOptGetInfo()
     {
-        $c = new Curl('http://localhost');
-        $this->assertEquals('http://localhost', $c->getInfo(CURLINFO_EFFECTIVE_URL));
+        $c = new Curl('http://example.com');
+        $this->assertEquals('http://example.com', $c->getInfo(CURLINFO_EFFECTIVE_URL));
 
         $c = new Curl();
-        $this->assertEquals('', $c->getInfo(CURLINFO_EFFECTIVE_URL));
+        $this->assertEquals(null, $c->getInfo(CURLINFO_EFFECTIVE_URL));
         $c->setOpt(CURLOPT_URL, 'http://foo');
         $this->assertEquals('http://foo', $c->getInfo(CURLINFO_EFFECTIVE_URL));
         $c->setOptArray(array(CURLOPT_URL => 'http://bar'));
@@ -52,18 +51,6 @@ class CurlTest
     {
         $c = new Curl();
         $c->exec(-42);
-    }
-
-    public function testExecAndErrors()
-    {
-        $h = curl_init();
-        curl_exec($h);
-        $expectedError = curl_error($h);
-
-        $c = new Curl();
-        $c->exec();
-        $this->assertEquals(CURLE_URL_MALFORMAT, $c->errno());
-        $this->assertEquals($expectedError, $c->error());
     }
 
     /**

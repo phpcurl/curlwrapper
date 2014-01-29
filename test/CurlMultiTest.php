@@ -16,21 +16,6 @@ use F3\CurlWrapper\CurlMulti;
 class CurlMultiTest
     extends \PHPUnit_Framework_TestCase
 {
-    public function testCtorDtor()
-    {
-        $m = new CurlMulti();
-        unset($m);
-    }
-
-    public function testAddRemove()
-    {
-        $m = new CurlMulti();
-        $c = new Curl();
-        $this->assertEquals(CURLM_OK, $m->add($c));
-        $this->assertEquals(CURLM_OK, $m->remove($c));
-        $this->assertEquals(CURLM_BAD_EASY_HANDLE, $m->remove($c));
-    }
-
     public function testInfoRead()
     {
         $m = new CurlMulti();

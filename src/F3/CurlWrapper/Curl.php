@@ -38,15 +38,19 @@ class Curl
      */
     public function __construct($url = null)
     {
-        if (func_num_args() > 0)
-        {
-            $this->handle = curl_init($url);
-        }
-        else
-        {
-            $this->handle = curl_init();
-        }
+		$this->init($url);
     }
+
+	/**
+	 * init
+	 *
+	 * @param string $url URL
+	 * @return void
+	 */
+	public function init($url = null)
+	{
+		$this->handle = curl_init($url);
+	}
 
     /**
      * Get curl handle
@@ -98,21 +102,17 @@ class Curl
     public function exec($attempts = 1, $useException = false)
     {
         $attempts = (int) $attempts;
-        if ($attempts < 1)
-        {
+        if ($attempts < 1) {
             throw new \InvalidArgumentException(sprintf('Attempts count is not positive: %d', $attempts));
         }
         $i = 0;
-        while ($i++ < $attempts)
-        {
+        while ($i++ < $attempts) {
             $result = curl_exec($this->handle);
-            if ($result !== false)
-            {
+            if ($result !== false) {
                 break;
             }
         }
-        if ($useException && (false === $result))
-        {
+        if ($useException && (false === $result)) {
             throw new \RuntimeException(sprintf('Error "%s" after %d attempt(s)', $this->error(), $attempts), $this->errno());
         }
         return $result;
