@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <phpunit
+    bootstrap="autoload.php"
     backupGlobals="true"
     backupStaticAttributes="true"
     colors="true"
@@ -9,13 +10,8 @@
     stopOnFailure="false"
     verbose="true"
     syntaxCheck="true">
-    <logging>
-		<log type="coverage-html" target="./test/coverage" charset="UTF-8"
-            yui="true" highlight="false"
-            lowUpperBound="70" highLowerBound="90"/>
-    </logging>
     <testsuites>
-        <testsuite name="Main Test Suite">
+        <testsuite name="Main">
             <directory>./test</directory>
         </testsuite>
     </testsuites>

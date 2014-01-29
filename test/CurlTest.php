@@ -1,7 +1,5 @@
 <?php
-require_once(dirname(__DIR__) . '/src/F3/CurlWrapper/Curl.php');
-
-use F3\CurlWrapper\Curl;
+namespace F3\CurlWrapper;
 
 /**
  * Only some indirect tests are available due to use of system functions.

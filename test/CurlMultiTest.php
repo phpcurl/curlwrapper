@@ -1,8 +1,5 @@
 <?php
-require_once(dirname(__DIR__) . '/src/F3/CurlWrapper/CurlMulti.php');
-
-use F3\CurlWrapper\Curl;
-use F3\CurlWrapper\CurlMulti;
+namespace F3\CurlWrapper;
 
 /**
  * CurlMultiTest
