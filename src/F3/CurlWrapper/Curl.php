@@ -1,17 +1,21 @@
 <?php
 namespace F3\CurlWrapper;
+
+use InvalidArgumentException;
+use RuntimeException;
+
 /**
  * OOP wrapper for curl_* functions
  *
  * Functional and OOP style mapping:
  *
- * curl_init($url);             |   $curl = new F3_Curl($url);
+ * curl_init($url);             |   $curl = new \F3\Curl($url);
  * curl_close($h);              |   unset($curl);
  * $e = curl_errno($h);         |   $e = $curl->errno();
  * $e = curl_error($h);         |   $e = $curl->error();
  * $i = curl_getinfo($h, $o);   |   $i = $curl->getInfo($o);
  * curl_setopt($opt, $val); ;   |   $curl->setOpt($opt, $val);
- * curl_setopt_array($array);   |   $curl->setOptArray($array); or $curl->setOpt($array)
+ * curl_setopt_array($array);   |   $curl->setOptArray($array);
  * curl_version($age)           |   F3_Curl::version($age);
  * $h2 = curl_copy_handle($h);  |   $curl2 = clone($curl);
  * curl_exec($h);               |   $curl->exec();
@@ -27,7 +31,7 @@ class Curl
     /**
      * curl handle
      *
-     * @var handler
+     * @var resource
      */
     private $handle;
 
@@ -42,7 +46,7 @@ class Curl
     }
 
 	/**
-	 * init
+	 * @see curl_init()
 	 *
 	 * @param string $url URL
 	 * @return void
@@ -83,7 +87,7 @@ class Curl
     }
 
     /**
-     * @see curl_error
+     * @see curl_error()
      *
      * @return string
      */
@@ -103,7 +107,7 @@ class Curl
     {
         $attempts = (int) $attempts;
         if ($attempts < 1) {
-            throw new \InvalidArgumentException(sprintf('Attempts count is not positive: %d', $attempts));
+            throw new InvalidArgumentException(sprintf('Attempts count is not positive: %d', $attempts));
         }
         $i = 0;
         while ($i++ < $attempts) {
@@ -113,7 +117,7 @@ class Curl
             }
         }
         if ($useException && (false === $result)) {
-            throw new \RuntimeException(sprintf('Error "%s" after %d attempt(s)', $this->error(), $attempts), $this->errno());
+            throw new RuntimeException(sprintf('Error "%s" after %d attempt(s)', $this->error(), $attempts), $this->errno());
         }
         return $result;
     }
