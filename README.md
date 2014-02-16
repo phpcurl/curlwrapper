@@ -4,8 +4,8 @@ The simplest OOP-style wrapper for the standard php curl functions.
 The main purpose is to make code that uses curl calls testable. We do it by injecting the Curl object as a dependency instead of calling curl functions directly.
 
 
+Not testabe code. Hard-coded dependencies.
 ```php
-//Not testabe code. Hard-coded dependencies.
 class MyApiClient {
     ...
     function call($url)
@@ -15,18 +15,16 @@ class MyApiClient {
         return curl_exec($ch);
     }
 }
+```
 
-
-//Testable code. Curl object is injected, so can be easily mocked in PHPUnit.
+Testable code. Curl object is injected, so can be easily mocked in PHPUnit.
+```php
 class MyApiClient {
-
     private $curl;
-
     function __construct(\F3\CurlWrapper\Curl $curl)
     {
         $this->curl = $curl;
     }
-
     ...
     function call($url)
     {
