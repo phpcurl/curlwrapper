@@ -1,0 +1,19 @@
+{
+	"name": "f3ath/curlwrapper",
+	"type": "library",
+	"description": "OOP wrapper for curl functions. Use CURL as a dependency, not hard-coded.",
+	"keywords": ["curl", "oop", "wrapper", "testing", "dependency injection"],
+	"require": {
+		"php": ">=5.3.0",
+		"ext-curl": "*"
+	},
+	"require-dev": {
+		"f3ath/fock": "*"
+	},
+	"autoload": {
+        "psr-4": {
+            "F3\\CurlWrapper\\": "src/"
+        }
+	}
+}
+

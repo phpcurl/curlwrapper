@@ -13,34 +13,8 @@ namespace F3\CurlWrapper;
 class CurlMultiTest
     extends \PHPUnit_Framework_TestCase
 {
-    public function testInfoRead()
+    public function testCreate()
     {
         $m = new CurlMulti();
-        $this->assertFalse($m->infoRead($msgs));
-        $this->assertNull($msgs);
-    }
-
-    public function testSelect()
-    {
-		$m = new CurlMulti();
-		// On failure, this function will return -1 on a select failure or timeout (from the underlying select system call).
-        $this->assertEquals(-1, $m->select(0.01));
-    }
-
-    public function testGetContent()
-    {
-        $m = new CurlMulti();
-        $c = new Curl();
-        $m->add($c);
-        $this->assertEquals('', $m->getContent($c));
-    }
-
-    public function testExec()
-    {
-        $m = new CurlMulti();
-        $c = new Curl();
-        $m->add($c);
-        $this->assertEquals(CURLM_OK, $m->exec($running));
-        $this->assertEquals(0, $running);
     }
 }

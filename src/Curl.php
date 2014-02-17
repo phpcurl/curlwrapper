@@ -168,6 +168,17 @@ class Curl
     }
 
     /**
+     * @see curl_strerror()
+     *
+     * @param int $errornum
+     * @return array
+     */
+    public static function strerror($errornum)
+    {
+        return curl_strerror($errornum);
+    }
+
+    /**
      * __clone
      * Copies handle using curl_copy_handle()
      *
@@ -176,5 +187,47 @@ class Curl
     public function __clone()
     {
         $this->handle = curl_copy_handle($this->handle);
+    }
+
+    /**
+     * @see curl_escape()
+     *
+     * @param string $str
+     * @return string
+     */
+    public function escape($str)
+    {
+        return curl_escape($this->handle, $str);
+    }
+
+    /**
+     * @see curl_unescape()
+     *
+     * @param string $str
+     * @return string
+     */
+    public function unescape($str)
+    {
+        return curl_unescape($this->handle, $str);
+    }
+
+    /**
+     * @see curl_reset()
+     *
+     * @return void
+     */
+    public function reset()
+    {
+        return curl_reset($this->handle);
+    }
+    /**
+     * @see curl_pause()
+     *
+     * @param int $bitmask
+     * @return int
+     */
+    public function pause($bitmask)
+    {
+        return curl_pause($this->handle, $bitmask);
     }
 }
