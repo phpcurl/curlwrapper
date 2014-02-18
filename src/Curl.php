@@ -162,7 +162,7 @@ class Curl
      * @param int $age
      * @return array
      */
-    public static function version($age = CURLVERSION_NOW)
+    static public function version($age = CURLVERSION_NOW)
     {
         return curl_version($age);
     }
@@ -173,7 +173,7 @@ class Curl
      * @param int $errornum
      * @return array
      */
-    public static function strerror($errornum)
+    static public function strerror($errornum)
     {
         return curl_strerror($errornum);
     }

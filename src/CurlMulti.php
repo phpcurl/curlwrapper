@@ -1,11 +1,12 @@
 <?php
 namespace F3\CurlWrapper;
+
 /**
  * OOP wrapper for curl_multi_* fuctions
  *
  * Functional to OOP style mapping
  *
- * curl_multi_init();                           |   $cm = CurlMulti::factory();
+ * curl_multi_init();                           |   $cm = new CurlMulti()
  * curl_multi_close($h);                        |   unset($cm);
  * $i = curl_multi_add_handle($mh, $ch);        |   $i = $cm->add($curl);
  * $i = curl_multi_remove_handle($mh, $ch);     |   $i = $cm->remove($curl);
@@ -13,6 +14,7 @@ namespace F3\CurlWrapper;
  * $s = curl_multi_getcontent($ch);             |   $s = $cm->getContent($curl);
  * $a = curl_multi_info_read($mh, $msgs);       |   $a = $cm->infoRead($msgs)
  * $i = curl_multi_select($mh, $timeout);       |   $i = $cm->select($timeout);
+ * $r = curl_multi_setopt($h, $opt, $val);      |   $r = $cm->setOpt($opt, $val);
  *
  * @package CurlWrapper
  * @version $id$
@@ -45,6 +47,16 @@ class CurlMulti
     public function __destruct()
     {
         curl_multi_close($this->handle);
+    }
+
+    /**
+     * Get handle
+     *
+     * @return resource
+     */
+    public function getHandle()
+    {
+        return $this->handle;
     }
 
     /**
@@ -110,5 +122,28 @@ class CurlMulti
     public function select($timeout = 1.0)
     {
         return curl_multi_select($this->handle, $timeout);
+    }
+
+    /**
+     * @see curl_multi_strerror
+     *
+     * @param int $errornum
+     * @return string
+     */
+    static public function strerror($errornum)
+    {
+        return curl_multi_strerror($errornum);
+    }
+
+    /**
+     * @see curl_multi_setopt
+     *
+     * @param int $opt
+     * @param mixed $val
+     * @return boolean
+     */
+    public function setOpt($opt, $val)
+    {
+        return curl_multi_setopt($this->handle, $opt, $val);
     }
 }

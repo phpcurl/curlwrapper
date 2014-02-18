@@ -58,36 +58,16 @@ Functional to OOP style mapping
 | `$res = curl_escape($h, $str);`   | `$res = $curl->escape($str);` |
 | `$res = curl_unescape($h, $str);` | `$res = $curl->unescape($str);` |
 
+| `curl_multi_init();`                           |   `$cm = new CurlMulti();` |
+| `curl_multi_close($h);`                        |   `unset($cm);` |
+| `$i = curl_multi_add_handle($mh, $ch);`        |   `$i = $cm->add($curl);` |
+| `$i = curl_multi_remove_handle($mh, $ch);`     |   `$i = $cm->remove($curl);` |
+| `$i = curl_multi_exec($mh, $running);`         |   `$i = $cm->exec($running);` |
+| `$s = curl_multi_getcontent($ch);`             |   `$s = $cm->getContent($curl);` |
+| `$a = curl_multi_info_read($mh, $msgs);`       |   `$a = $cm->infoRead($msgs);` |
+| `$i = curl_multi_select($mh, $timeout);`       |   `$i = $cm->select($timeout);` |
+| `$r = curl_multi_setopt($h, $opt, $val);`      |   `$r = $cm->setOpt($opt, $val);` |
 
-
-```
-curl_close()
-curl_copy_handle()
-curl_errno()
-curl_error()
-curl_escape()
-curl_exec()
-curl_file_create()
-curl_getinfo()
-curl_init()
-curl_multi_add_handle()
-curl_multi_close()
-curl_multi_exec()
-curl_multi_getcontent()
-curl_multi_info_read()
-curl_multi_init() {
-curl_multi_remove_handle()
-curl_multi_select()
-curl_multi_setopt()
-curl_multi_strerror()
-curl_pause()
-curl_reset()
-curl_setopt()
-curl_setopt_array()
-curl_share_close()
-curl_share_init()
-curl_share_setopt()
-curl_strerror()
-curl_unescape()
-curl_version()
-```
+| `curl_share_init();`                           |   `$cs = new CurlShare();` |
+| `curl_share_close($h);`                        |   `unset($cs);` |
+| `$r = curl_multi_setopt($h, $opt, $val);`      |   `$r = $cs->setOpt($opt, $val);` |

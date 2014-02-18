@@ -4,13 +4,7 @@ namespace F3\CurlWrapper;
 use F3\Fock\Mocker;
 
 /**
- * Only some indirect tests are available due to use of system functions.
- *
- * @package CurlWrapper
- * @version $id$
- * @copyright Alexey Karapetov
- * @author Alexey Karapetov <karapetov@gmail.com>
- * @license http://opensource.org/licenses/mit-license.php The MIT License (MIT)
+ * @runTestsInSeparateProcesses
  */
 class CurlTest extends \PHPUnit_Framework_TestCase
 {
