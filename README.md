@@ -37,9 +37,9 @@ class MyApiClient {
 ```
 
 
-##Basic usage examples
+##Basic usage examples. Functional vs OOP style
 
-Functional to OOP style mapping
+Curl
 
 | Functional                        | OOP |
 | ---                               | --- |
@@ -58,6 +58,10 @@ Functional to OOP style mapping
 | `$res = curl_escape($h, $str);`   | `$res = $curl->escape($str);` |
 | `$res = curl_unescape($h, $str);` | `$res = $curl->unescape($str);` |
 
+CurlMulti
+
+| Functional                        | OOP |
+| ---                               | --- |
 | `curl_multi_init();`                           |   `$cm = new CurlMulti();` |
 | `curl_multi_close($h);`                        |   `unset($cm);` |
 | `$i = curl_multi_add_handle($mh, $ch);`        |   `$i = $cm->add($curl);` |
@@ -68,6 +72,10 @@ Functional to OOP style mapping
 | `$i = curl_multi_select($mh, $timeout);`       |   `$i = $cm->select($timeout);` |
 | `$r = curl_multi_setopt($h, $opt, $val);`      |   `$r = $cm->setOpt($opt, $val);` |
 
+CurlShare
+
+| Functional                        | OOP |
+| ---                               | --- |
 | `curl_share_init();`                           |   `$cs = new CurlShare();` |
 | `curl_share_close($h);`                        |   `unset($cs);` |
 | `$r = curl_multi_setopt($h, $opt, $val);`      |   `$r = $cs->setOpt($opt, $val);` |
