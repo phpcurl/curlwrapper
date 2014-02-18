@@ -3,6 +3,14 @@
 	"type": "library",
 	"description": "OOP wrapper for curl functions. Use CURL as a dependency, not hard-coded. Supports php up to 5.5.",
 	"keywords": ["curl", "oop", "wrapper", "testing", "dependency injection"],
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Alexey Karapetov",
+            "email": "karapetov@gmail.com",
+            "role": "Developer"
+        }
+    ],
 	"require": {
 		"php": ">=5.3.0",
 		"ext-curl": "*"
