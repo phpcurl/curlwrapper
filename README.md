@@ -1,4 +1,4 @@
-#CurlWrapper
+#CurlWrapper for php 5.5
 
 The simplest OOP-style wrapper for the standard php curl functions.
 The main purpose is to make code that uses curl calls testable. We do it by injecting the Curl object as a dependency instead of calling curl functions directly.
@@ -79,3 +79,19 @@ CurlShare
 | `curl_share_init();`                           |   `$cs = new CurlShare();` |
 | `curl_share_close($h);`                        |   `unset($cs);` |
 | `$r = curl_multi_setopt($h, $opt, $val);`      |   `$r = $cs->setOpt($opt, $val);` |
+
+##Auto retry and error control through exceptions
+
+Curl::exec() can automatically retry in case of an error (i.e. network is unstable). It also is able to throw a RuntimeException if an error occurs.
+
+```php
+$curl = new Curl('http://example.com');
+$curl->setOpt(CURLOPT_RETURNTRANSFER, true);
+try {
+    // try 3 times, if unable throw a RuntimeException
+    $curl->exec(3, true);
+} catch (RuntimeException $e) {
+    $message = $e->getMessage();
+    $curlErrorNumber = $e->getCode();
+}
+```
