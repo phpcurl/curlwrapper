@@ -1,120 +1,86 @@
 <?php
 namespace F3\CurlWrapper;
 
-use F3\Fock\Mocker;
-
-// Function mocks
-function curl_multi_exec ($handle, &$stillRunning) {
-    $stillRunning = true;
-    return 123;
-}
-function curl_multi_info_read ($handle, &$msgs) {
-    $msgs = 'hello';
-    return 123;
+function curl_multi_init()
+{
+    return 'foo';
 }
 
-/**
- * @runTestsInSeparateProcesses
- */
+function curl_multi_setopt($h, $o, $v)
+{
+    return 'setopt_'.$h.'_'.$o.'_'.$v;
+}
+
+function curl_multi_add_handle($h, $c)
+{
+    return 'add_handle_'.$h.'_'.$c;
+}
+
+function curl_multi_remove_handle($h, $c)
+{
+    return 'remove_handle_'.$h.'_'.$c;
+}
+
+function curl_multi_getcontent($h)
+{
+    return 'getcontent_'.$h;
+}
+
+function curl_multi_strerror($c)
+{
+    return 'strerror_'.$c;
+}
+
+function curl_multi_select($h, $t)
+{
+    return 'select_'.$h.'_'.$t;
+}
+
+function curl_multi_close($h)
+{
+    CurlMultiTest::$log[] = 'close_'.$h;
+}
+
+function curl_multi_info_read($h, &$m)
+{
+    $m = 42;
+    return 'info_read_'.$h;
+}
+
+function curl_multi_exec($h, &$r)
+{
+    $r = 24;
+    return 'exec_'.$h;
+}
+
 class CurlMultiTest extends \PHPUnit_Framework_TestCase
 {
-    private $m;
+    static public $log;
 
-    protected function setUp()
+    public function testAll()
     {
-        $functions = array(
-            'curl_multi_add_handle',
-            'curl_multi_close',
-            'curl_multi_getcontent',
-            'curl_multi_init',
-            'curl_multi_remove_handle',
-            'curl_multi_select',
-            'curl_multi_setopt',
-            'curl_multi_strerror',
-        );
-
-        foreach ($functions as $f) {
-            $functionsNamespaced[] = __NAMESPACE__.'\\'.$f;
-        }
-
-        $this->m = $m = $this->getMock('stdClass', $functions);
-
-        Mocker::mock($functionsNamespaced, function($function, array $args, $namespace, $short) use ($m) {
-            return call_user_func_array(array($m, $short), $args);
-        });
-
-    }
-
-    protected function tearDown()
-    {
-        Mocker::clean();
-    }
-
-    public function testGeneralMethods()
-    {
-        $c = new Curl();
-
-        $this->m->expects($this->once())
-            ->method('curl_multi_init')
-            ->will($this->returnValue('handle'));
-
-        $this->m->expects($this->once())
-            ->method('curl_multi_close')
-            ->with('handle');
-
-        $this->m->expects($this->once())
-            ->method('curl_multi_add_handle')
-            ->with('handle', $c->getHandle())
-            ->will($this->returnValue(42));
-
-        $this->m->expects($this->once())
-            ->method('curl_multi_getcontent')
-            ->with($c->getHandle())
-            ->will($this->returnValue('content'));
-
-        $this->m->expects($this->once())
-            ->method('curl_multi_remove_handle')
-            ->with('handle', $c->getHandle())
-            ->will($this->returnValue(42));
-
-        $this->m->expects($this->once())
-            ->method('curl_multi_select')
-            ->with('handle', 3.21)
-            ->will($this->returnValue(42));
-
-        $this->m->expects($this->once())
-            ->method('curl_multi_strerror')
-            ->with(222)
-            ->will($this->returnValue('my_error'));
-
-        $this->m->expects($this->once())
-            ->method('curl_multi_setopt')
-            ->with('handle', 'opt', 'val')
-            ->will($this->returnValue('result'));
+        $c = $this->getMock('F3\\CurlWrapper\\Curl', array('getHandle'));
+        $c->expects($this->any())
+            ->method('getHandle')
+            ->will($this->returnValue('bar'));
 
         $cm = new CurlMulti();
-        $this->assertEquals('handle', $cm->getHandle());
-        $this->assertEquals(42, $cm->add($c));
-        $this->assertEquals('content', $cm->getContent($c));
-        $this->assertEquals(42, $cm->remove($c));
-        $this->assertEquals(42, $cm->select(3.21));
-        $this->assertEquals('my_error', CurlMulti::strerror(222));
-        $this->assertEquals('result', $cm->setOpt('opt', 'val'));
-    }
+        $this->assertEquals('foo', $cm->getHandle());
+        $this->assertEquals('setopt_foo_opt_val', $cm->setOpt('opt', 'val'));
+        $this->assertEquals('add_handle_foo_bar', $cm->add($c));
+        $this->assertEquals('remove_handle_foo_bar', $cm->remove($c));
+        $this->assertEquals('getcontent_bar', $cm->getContent($c));
+        $this->assertEquals('select_foo_1', $cm->select());
+        $this->assertEquals('select_foo_2.3', $cm->select(2.3));
 
-    public function testExec()
-    {
-        $cm = new CurlMulti();
-        $stillRunning = false;
-        $this->assertEquals(123, $cm->exec($stillRunning));
-        $this->assertTrue($stillRunning);
-    }
+        $this->assertEquals('info_read_foo', $cm->infoRead($msgs));
+        $this->assertEquals(42, $msgs);
 
-    public function testInfoRead()
-    {
-        $cm = new CurlMulti();
-        $msgs = '';
-        $this->assertEquals(123, $cm->infoRead($msgs));
-        $this->assertEquals('hello', $msgs);
+        $this->assertEquals('exec_foo', $cm->exec($running));
+        $this->assertEquals(24, $running);
+
+        $this->assertEquals('strerror_boo', CurlMulti::strerror('boo'));
+        unset($cm);
+        $this->assertEquals(['close_foo'], self::$log);
     }
 }

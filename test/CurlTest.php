@@ -1,153 +1,142 @@
 <?php
 namespace F3\CurlWrapper;
 
-use F3\Fock\Mocker;
+function curl_close($h)
+{
+    CurlTest::$log[] = 'close_'.$h;
+}
 
-/**
- * @runTestsInSeparateProcesses
- */
+function curl_init($url)
+{
+    return $url;
+}
+
+function curl_setopt($h, $o, $v)
+{
+    return 'setopt_'.$h.'_'.$o.'_'.$v;
+}
+
+function curl_setopt_array($h, $a)
+{
+    return 'setopt_array_'.$h.'_'.implode('_', array_keys($a)).'_'.implode('_', $a);
+}
+
+function curl_copy_handle($h)
+{
+    return 'copy_'.$h;
+}
+
+function curl_version($v)
+{
+    return 'version_'.$v;
+}
+
+function curl_reset($h)
+{
+    return 'reset_'.$h;
+}
+
+function curl_strerror($c)
+{
+    return 'strerror_'.$c;
+}
+
+function curl_escape($v, $s)
+{
+    return 'escape_'.$v.'_'.$s;
+}
+
+function curl_unescape($v, $s)
+{
+    return 'unescape_'.$v.'_'.$s;
+}
+
+function curl_getinfo($h, $o)
+{
+    return 'getinfo_'.$h.'_'.$o;
+}
+
+function curl_pause($h, $m)
+{
+    return 'pause_'.$h.'_'.$m;
+}
+
+function curl_exec($h)
+{
+    return CurlTest::$mock->exec($h);
+}
+
+function curl_error($h)
+{
+    return CurlTest::$mock->error($h);
+}
+
+function curl_errno($h)
+{
+    return CurlTest::$mock->errno($h);
+}
+
 class CurlTest extends \PHPUnit_Framework_TestCase
 {
-    private $m;
+    static public $log = [];
+    static public $mock;
 
-    protected function setUp()
+    public function setUp()
     {
-        $functions = array(
-            'curl_close',
-            'curl_copy_handle',
-            'curl_errno',
-            'curl_error',
-            'curl_escape',
-            'curl_exec',
-            'curl_getinfo',
-            'curl_init',
-            'curl_pause',
-            'curl_reset',
-            'curl_setopt',
-            'curl_setopt_array',
-            'curl_strerror',
-            'curl_unescape',
-            'curl_version',
-        );
-
-        foreach ($functions as $f) {
-            $functionsNamespaced[] = __NAMESPACE__.'\\'.$f;
-        }
-
-        $this->m = $m = $this->getMock('stdClass', $functions);
-
-        Mocker::mock($functionsNamespaced, function($function, array $args, $namespace, $short) use ($m) {
-            return call_user_func_array(array($m, $short), $args);
-        });
+        self::$mock = $this->getMock('stdClass', ['exec', 'error', 'errno']);
     }
 
-    protected function tearDown()
+    public function testAll()
     {
-        Mocker::clean();
+        $empty = new Curl();
+        $this->assertNull($empty->getHandle());
+
+        $c = new Curl('foo');
+
+        $this->assertEquals('setopt_foo_opt_val', $c->setOpt('opt', 'val'));
+
+        $this->assertEquals('setopt_array_foo_0_1_a_b', $c->setOptArray(['a', 'b']));
+
+        $this->assertEquals('foo', $c->getHandle());
+
+        $this->assertEquals('escape_foo_str', $c->escape('str'));
+
+        $this->assertEquals('unescape_foo_str', $c->unescape('str'));
+
+        $this->assertEquals('reset_foo', $c->reset());
+
+        $this->assertEquals('getinfo_foo_0', $c->getinfo());
+        $this->assertEquals('getinfo_foo_42', $c->getinfo(42));
+
+        $this->assertEquals('pause_foo_42', $c->pause(42));
+
+        $clone = clone($c);
+        $this->assertEquals('copy_foo', $clone->getHandle());
+
+        unset($c);
+        $this->assertEquals(['close_foo'], self::$log);
+
+        $this->assertEquals('version_'.CURLVERSION_NOW, Curl::version());
+        $this->assertEquals('version_123', Curl::version(123));
+
+        $this->assertEquals('strerror_boo', Curl::strerror('boo'));
     }
 
-    public function testGeneralMethods()
-    {
-        $this->m->expects($this->once())
-            ->method('curl_init')
-            ->with('example.com')
-            ->will($this->returnValue('handle'));
-
-        $this->m->expects($this->exactly(2))
-            ->method('curl_close')
-            ->with($this->logicalOr('handle', 'cloned_handle'));
-
-        $this->m->expects($this->once())
-            ->method('curl_copy_handle')
-            ->with('handle')
-            ->will($this->returnValue('cloned_handle'));
-
-        $this->m->expects($this->once())
-            ->method('curl_setopt')
-            ->with('handle', 'opt', 'val')
-            ->will($this->returnValue('setopt_result'));
-
-        $this->m->expects($this->once())
-            ->method('curl_setopt_array')
-            ->with('handle', array('foo' => 'bar'))
-            ->will($this->returnValue('setopt_array_result'));
-
-        $this->m->expects($this->once())
-            ->method('curl_version')
-            ->with(42)
-            ->will($this->returnValue('version_result'));
-
-        $this->m->expects($this->once())
-            ->method('curl_strerror')
-            ->with(42)
-            ->will($this->returnValue('strerror_result'));
-
-        $this->m->expects($this->once())
-            ->method('curl_error')
-            ->with('handle')
-            ->will($this->returnValue('error_result'));
-
-        $this->m->expects($this->once())
-            ->method('curl_errno')
-            ->with('handle')
-            ->will($this->returnValue('errno_result'));
-
-        $this->m->expects($this->once())
-            ->method('curl_getinfo')
-            ->with('handle', 42)
-            ->will($this->returnValue('info_result'));
-
-        $this->m->expects($this->once())
-            ->method('curl_escape')
-            ->with('handle', 'str')
-            ->will($this->returnValue('escape_result'));
-
-        $this->m->expects($this->once())
-            ->method('curl_unescape')
-            ->with('handle', 'str')
-            ->will($this->returnValue('unescape_result'));
-
-        $this->m->expects($this->once())
-            ->method('curl_reset')
-            ->with('handle')
-            ->will($this->returnValue('reset_result'));
-
-        $this->m->expects($this->once())
-            ->method('curl_pause')
-            ->with('handle', 42)
-            ->will($this->returnValue('pause_result'));
-
-        $curl = new Curl('example.com');
-        $this->assertEquals('handle', $curl->getHandle());
-        $clone = clone($curl);
-        $this->assertEquals('cloned_handle', $clone->getHandle());
-        $this->assertEquals('setopt_result', $curl->setOpt('opt', 'val'));
-        $this->assertEquals('setopt_array_result', $curl->setOptArray(array('foo' => 'bar')));
-        $this->assertEquals('version_result', Curl::version(42));
-        $this->assertEquals('strerror_result', Curl::strerror(42));
-        $this->assertEquals('error_result', $curl->error());
-        $this->assertEquals('errno_result', $curl->errno());
-        $this->assertEquals('info_result', $curl->getInfo(42));
-        $this->assertEquals('escape_result', $curl->escape('str'));
-        $this->assertEquals('unescape_result', $curl->unescape('str'));
-        $this->assertEquals('reset_result', $curl->reset());
-        $this->assertEquals('pause_result', $curl->pause(42));
-    }
 
     public function testExecDefaultParameters()
     {
-        $this->m->expects($this->once())
-            ->method('curl_exec')
-            ->will($this->returnValue('exec_result'));
+        self::$mock->expects($this->once())
+            ->method('exec')
+            ->will($this->returnValue('result'));
 
-        $curl = new Curl('example.com');
-        $this->assertEquals('exec_result', $curl->exec());
+        $curl = new Curl();
+        $this->assertEquals('result', $curl->exec());
     }
 
     public function testExecRetry()
     {
-        $this->m->expects($this->exactly(3))
-            ->method('curl_exec')
+        self::$mock->expects($this->exactly(3))
+            ->method('exec')
             ->will($this->onConsecutiveCalls(false, false, 'ok'));
 
         $curl = new Curl();
@@ -156,8 +145,8 @@ class CurlTest extends \PHPUnit_Framework_TestCase
 
     public function testExecError()
     {
-        $this->m->expects($this->exactly(2))
-            ->method('curl_exec')
+        self::$mock->expects($this->exactly(2))
+            ->method('exec')
             ->will($this->onConsecutiveCalls(false, false));
 
         $curl = new Curl();
@@ -166,24 +155,25 @@ class CurlTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @expectedException \RuntimeException
-     * @expectedExceptionMessage Error "test_error" after 2 attempt(s)
-     * @expectedExceptionCode 42
+     * @expectedExceptionMessage Error "omfg" after 2 attempt(s)
+     * @expectedExceptionCode 666
      */
     public function testExecException()
     {
-        $this->m->expects($this->exactly(2))
-            ->method('curl_exec')
+        self::$mock->expects($this->exactly(2))
+            ->method('exec')
             ->will($this->onConsecutiveCalls(false, false));
 
-        $this->m->expects($this->once())
-            ->method('curl_error')
-            ->will($this->returnValue('test_error'));
+        self::$mock->expects($this->once())
+            ->method('error')
+            ->will($this->returnValue('omfg'));
 
-        $this->m->expects($this->once())
-            ->method('curl_errno')
-            ->will($this->returnValue(42));
+        self::$mock->expects($this->once())
+            ->method('errno')
+            ->will($this->returnValue(666));
 
-        $curl = new Curl();
+
+        $curl = new Curl('zzz');
         $curl->exec(2, true);
     }
 
