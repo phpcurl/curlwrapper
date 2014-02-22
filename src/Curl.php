@@ -42,19 +42,19 @@ class Curl
      */
     public function __construct($url = null)
     {
-		$this->init($url);
+        $this->init($url);
     }
 
-	/**
-	 * @see curl_init()
-	 *
-	 * @param string $url URL
-	 * @return void
-	 */
-	public function init($url = null)
-	{
-		$this->handle = curl_init($url);
-	}
+    /**
+     * @see curl_init()
+     *
+     * @param string $url URL
+     * @return void
+     */
+    public function init($url = null)
+    {
+        $this->handle = curl_init($url);
+    }
 
     /**
      * Get curl handle
