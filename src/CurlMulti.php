@@ -6,15 +6,15 @@ namespace F3\CurlWrapper;
  *
  * Functional to OOP style mapping
  *
- * curl_multi_init();                           |   $cm = new CurlMulti()
- * curl_multi_close($h);                        |   unset($cm);
- * $i = curl_multi_add_handle($mh, $ch);        |   $i = $cm->add($curl);
- * $i = curl_multi_remove_handle($mh, $ch);     |   $i = $cm->remove($curl);
- * $i = curl_multi_exec($mh, $running);         |   $i = $cm->exec($running);
- * $s = curl_multi_getcontent($ch);             |   $s = $cm->getContent($curl);
- * $a = curl_multi_info_read($mh, $msgs);       |   $a = $cm->infoRead($msgs)
- * $i = curl_multi_select($mh, $timeout);       |   $i = $cm->select($timeout);
- * $r = curl_multi_setopt($h, $opt, $val);      |   $r = $cm->setOpt($opt, $val);
+ * curl_multi_init();                            $cm = new CurlMulti();
+ * curl_multi_close($h);                         unset($cm);
+ * $i = curl_multi_add_handle($mh, $ch);         $i = $cm->add($curl);
+ * $i = curl_multi_remove_handle($mh, $ch);      $i = $cm->remove($curl);
+ * $i = curl_multi_exec($mh, $running);          $i = $cm->exec($running);
+ * $s = curl_multi_getcontent($ch);              $s = $cm->getContent($curl);
+ * $a = curl_multi_info_read($mh, $msgs);        $a = $cm->infoRead($msgs);
+ * $i = curl_multi_select($mh, $timeout);        $i = $cm->select($timeout);
+ * $r = curl_multi_setopt($h, $opt, $val);       $r = $cm->setOpt($opt, $val);
  *
  * @package CurlWrapper
  * @version $id$

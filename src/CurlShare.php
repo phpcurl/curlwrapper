@@ -6,9 +6,9 @@ namespace F3\CurlWrapper;
  *
  * Functional to OOP style mapping
  *
- * curl_share_init();                           |   $cs = new CurlShare()
- * curl_share_close($h);                        |   unset($cs);
- * $r = curl_share_setopt($h, $opt, $val);      |   $r = $cs->setOpt($opt, $val);
+ * curl_share_init();                        $cs = new CurlShare()
+ * curl_share_close($h);                     unset($cs);
+ * $r = curl_share_setopt($h, $opt, $val);   $r = $cs->setOpt($opt, $val);
  *
  * @package CurlWrapper
  * @version $id$

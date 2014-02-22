@@ -9,16 +9,20 @@ use RuntimeException;
  *
  * Functional and OOP style mapping:
  *
- * curl_init($url);             |   $curl = new \F3\Curl($url);
- * curl_close($h);              |   unset($curl);
- * $e = curl_errno($h);         |   $e = $curl->errno();
- * $e = curl_error($h);         |   $e = $curl->error();
- * $i = curl_getinfo($h, $o);   |   $i = $curl->getInfo($o);
- * curl_setopt($opt, $val); ;   |   $curl->setOpt($opt, $val);
- * curl_setopt_array($array);   |   $curl->setOptArray($array);
- * curl_version($age)           |   F3_Curl::version($age);
- * $h2 = curl_copy_handle($h);  |   $curl2 = clone($curl);
- * curl_exec($h);               |   $curl->exec();
+ * $h = curl_init($url);              $curl = new Curl($url); //or $curl->init($url)
+ * curl_close($h);                    unset($curl);
+ * $e = curl_errno($h);               $e = $curl->errno();
+ * $e = curl_error($h);               $e = $curl->error();
+ * $i = curl_getinfo($h, $opt);       $i = $curl->getInfo($opt);
+ * curl_setopt($h, $opt, $val);       $curl->setOpt($opt, $val);
+ * curl_setopt_array($h, $array);     $curl->setOptArray($array);
+ * curl_version($age)                 Curl::version($age);
+ * curl_strerror($errornum)           Curl::strerror($errornum);
+ * $h2 = curl_copy_handle($h);        $curl2 = clone($curl);
+ * $result = curl_exec($h);           $result = $curl->exec();
+ * $res = curl_pause($h, $mask);      $res = $curl->pause($mask);
+ * $res = curl_escape($h, $str);      $res = $curl->escape($str);
+ * $res = curl_unescape($h, $str);    $res = $curl->unescape($str);
  *
  * @package CurlWrapper
  * @version $id$
