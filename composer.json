@@ -1,8 +1,8 @@
 {
     "name": "f3ath/curlwrapper",
     "type": "library",
-    "description": "OOP wrapper for curl functions. Supports php up to 5.5. Use CURL as a dependency, not hard-coded!",
-    "keywords": ["curl", "oop", "wrapper", "testing", "dependency", "injection", "phpunit", "testable", "mock"],
+    "description": "The simplest OOP wrapper for curl, curl_multi, curl_share functions. Supports php up to 5.5, PSR-4. Use CURL as a dependency, not hard-coded!",
+    "keywords": ["curl", "curl_multi", "curl_share", "oop", "wrapper", "testing", "dependency", "injection", "phpunit", "testable", "mock"],
     "license": "MIT",
     "authors": [
     {
