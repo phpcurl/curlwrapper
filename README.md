@@ -1,4 +1,4 @@
-#CurlWrapper for php 5.3 - 7
+#CurlWrapper for PHP
 
 The simplest OOP-style wrapper for the standard php curl functions.
 The main purpose is to make code that uses curl calls testable. We do it by injecting the Curl object as a dependency instead of calling curl functions directly.
