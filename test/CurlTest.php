@@ -85,7 +85,7 @@ class CurlTest extends \PHPUnit_Framework_TestCase
 
     public function setUp()
     {
-        self::$mock = $this->getMock('stdClass', ['exec', 'error', 'errno', 'reset']);
+        self::$mock = $this->getMock('stdClass', array('exec', 'error', 'errno', 'reset'));
     }
 
     public function testAll()
