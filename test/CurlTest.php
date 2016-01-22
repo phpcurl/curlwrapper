@@ -97,7 +97,7 @@ class CurlTest extends \PHPUnit_Framework_TestCase
 
         $this->assertEquals('setopt_foo_opt_val', $c->setOpt('opt', 'val'));
 
-        $this->assertEquals('setopt_array_foo_0_1_a_b', $c->setOptArray(['a', 'b']));
+        $this->assertEquals('setopt_array_foo_0_1_a_b', $c->setOptArray(array('a', 'b')));
 
         $this->assertEquals('foo', $c->getHandle());
 
