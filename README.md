@@ -41,6 +41,10 @@ class MyApiClient {
 }
 ```
 
+##Install
+Via [composer](https://getcomposer.org):
+`$ composer require "f3ath/curlwrapper"`
+
 
 ##Basic usage examples. Functional vs OOP style
 
