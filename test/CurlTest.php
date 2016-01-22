@@ -33,7 +33,7 @@ function curl_version($v)
 
 function curl_reset($h)
 {
-    return 'reset_'.$h;
+    CurlTest::$log[] = 'reset_'.$h;
 }
 
 function curl_strerror($c)
@@ -83,7 +83,7 @@ class CurlTest extends \PHPUnit_Framework_TestCase
 
     public function setUp()
     {
-        self::$mock = $this->getMock('stdClass', ['exec', 'error', 'errno']);
+        self::$mock = $this->getMock('stdClass', ['exec', 'error', 'errno', 'reset']);
     }
 
     public function testAll()
@@ -103,7 +103,8 @@ class CurlTest extends \PHPUnit_Framework_TestCase
 
         $this->assertEquals('unescape_foo_str', $c->unescape('str'));
 
-        $this->assertEquals('reset_foo', $c->reset());
+        $c->reset();
+        $this->assertEquals('reset_foo', array_pop(self::$log));
 
         $this->assertEquals('getinfo_foo_0', $c->getinfo());
         $this->assertEquals('getinfo_foo_42', $c->getinfo(42));
@@ -114,7 +115,7 @@ class CurlTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('copy_foo', $clone->getHandle());
 
         unset($c);
-        $this->assertEquals(['close_foo'], self::$log);
+        $this->assertEquals('close_foo', array_pop(self::$log));
 
         $this->assertEquals('version_'.CURLVERSION_NOW, Curl::version());
         $this->assertEquals('version_123', Curl::version(123));

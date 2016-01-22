@@ -1,23 +1,38 @@
 {
-    "name": "f3ath/curlwrapper",
-    "type": "library",
-    "description": "The simplest OOP wrapper for curl, curl_multi, curl_share functions. Use CURL as a dependency, not hard-coded!",
-    "keywords": ["curl", "curl_multi", "curl_share", "oop", "wrapper", "testing", "dependency", "injection", "phpunit", "testable", "mock"],
-    "license": "MIT",
-    "authors": [
+  "name": "f3ath/curlwrapper",
+  "type": "library",
+  "description": "The simplest OOP wrapper for curl, curl_multi, curl_share functions. Use CURL as a dependency, not hard-coded!",
+  "keywords": [
+    "curl",
+    "curl_multi",
+    "curl_share",
+    "oop",
+    "wrapper",
+    "testing",
+    "dependency",
+    "injection",
+    "phpunit",
+    "testable",
+    "mock"
+  ],
+  "license": "MIT",
+  "authors": [
     {
-        "name": "Alexey Karapetov",
-        "email": "karapetov@gmail.com",
-        "role": "Developer"
+      "name": "Alexey Karapetov",
+      "email": "karapetov@gmail.com",
+      "role": "Developer"
     }
-    ],
-        "require": {
-            "php": ">=5.3.0",
-            "ext-curl": "*"
-        },
-        "autoload": {
-            "psr-4": {
-                "F3\\CurlWrapper\\": "src/"
-            }
-        }
+  ],
+  "require": {
+    "php": ">=5.3.0",
+    "ext-curl": "*"
+  },
+  "require-dev": {
+    "phpunit/phpunit": "^4.8 || ^5.0"
+  },
+  "autoload": {
+    "psr-4": {
+      "F3\\CurlWrapper\\": "src/"
+    }
+  }
 }

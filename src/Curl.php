@@ -24,8 +24,6 @@ use RuntimeException;
  * $res = curl_escape($h, $str);      $res = $curl->escape($str);
  * $res = curl_unescape($h, $str);    $res = $curl->unescape($str);
  *
- * @package CurlWrapper
- * @version $id$
  * @copyright Alexey Karapetov
  * @author Alexey Karapetov <karapetov@gmail.com>
  * @license http://opensource.org/licenses/mit-license.php The MIT License (MIT)
@@ -222,7 +220,7 @@ class Curl
      */
     public function reset()
     {
-        return curl_reset($this->handle);
+        curl_reset($this->handle);
     }
     /**
      * @see curl_pause()

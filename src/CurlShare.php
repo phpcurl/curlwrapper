@@ -10,8 +10,6 @@ namespace F3\CurlWrapper;
  * curl_share_close($h);                     unset($cs);
  * $r = curl_share_setopt($h, $opt, $val);   $r = $cs->setOpt($opt, $val);
  *
- * @package CurlWrapper
- * @version $id$
  * @copyright Alexey Karapetov
  * @author Alexey Karapetov <karapetov@gmail.com>
  * @license http://opensource.org/licenses/mit-license.php The MIT License (MIT)
@@ -21,7 +19,7 @@ class CurlShare
     /**
      * curl handle
      *
-     * @var handler
+     * @var resource
      */
     private $handle;
 

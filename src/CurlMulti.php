@@ -2,7 +2,7 @@
 namespace F3\CurlWrapper;
 
 /**
- * OOP wrapper for curl_multi_* fuctions
+ * OOP wrapper for curl_multi_* functions
  *
  * Functional to OOP style mapping
  *
@@ -16,8 +16,6 @@ namespace F3\CurlWrapper;
  * $i = curl_multi_select($mh, $timeout);        $i = $cm->select($timeout);
  * $r = curl_multi_setopt($h, $opt, $val);       $r = $cm->setOpt($opt, $val);
  *
- * @package CurlWrapper
- * @version $id$
  * @copyright Alexey Karapetov
  * @author Alexey Karapetov <karapetov@gmail.com>
  * @license http://opensource.org/licenses/mit-license.php The MIT License (MIT)
@@ -27,7 +25,7 @@ class CurlMulti
     /**
      * curl handle
      *
-     * @var handler
+     * @var resource
      */
     private $handle;
 
@@ -84,6 +82,7 @@ class CurlMulti
     /**
      * @see curl_multi_getcontent()
      *
+     * @param Curl $curl
      * @return string
      */
     public function getContent(Curl $curl)
