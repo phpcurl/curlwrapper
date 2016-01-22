@@ -78,7 +78,7 @@ function curl_errno($h)
 
 class CurlTest extends \PHPUnit_Framework_TestCase
 {
-    static public $log = [];
+    static public $log = array();
     static public $mock;
 
     public function setUp()

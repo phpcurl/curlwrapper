@@ -55,7 +55,7 @@ function curl_multi_exec($h, &$r)
 
 class CurlMultiTest extends \PHPUnit_Framework_TestCase
 {
-    static public $log;
+    static public $log = array();
 
     public function testAll()
     {

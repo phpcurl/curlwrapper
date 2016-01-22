@@ -18,7 +18,7 @@ function curl_share_setopt($h, $o, $v)
 
 class CurlShareTest extends \PHPUnit_Framework_TestCase
 {
-    static public $log = [];
+    static public $log = array();
 
     public function testAll()
     {
