@@ -44,7 +44,7 @@ class MyApiClient {
 
 ##Basic usage examples. Functional vs OOP style
 
-Curl
+###Curl
 
 | Functional                        | OOP |
 | ---                               | --- |
@@ -63,7 +63,7 @@ Curl
 | `$res = curl_escape($h, $str);`   | `$res = $curl->escape($str);` |
 | `$res = curl_unescape($h, $str);` | `$res = $curl->unescape($str);` |
 
-CurlMulti
+###CurlMulti
 
 | Functional                        | OOP |
 | ---                               | --- |
@@ -77,7 +77,7 @@ CurlMulti
 | `$i = curl_multi_select($mh, $timeout);`       |   `$i = $cm->select($timeout);` |
 | `$r = curl_multi_setopt($h, $opt, $val);`      |   `$r = $cm->setOpt($opt, $val);` |
 
-CurlShare
+###CurlShare
 
 | Functional                        | OOP |
 | ---                               | --- |
