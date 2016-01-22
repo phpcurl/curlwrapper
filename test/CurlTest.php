@@ -1,6 +1,8 @@
 <?php
 namespace F3\CurlWrapper;
 
+use InvalidArgumentException;
+
 function curl_close($h)
 {
     CurlTest::$log[] = 'close_'.$h;
@@ -155,7 +157,7 @@ class CurlTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @expectedException \RuntimeException
+     * @expectedException \F3\CurlWrapper\CurlException
      * @expectedExceptionMessage Error "omfg" after 2 attempt(s)
      * @expectedExceptionCode 666
      */
@@ -179,7 +181,7 @@ class CurlTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @expectedException \InvalidArgumentException
+     * @expectedException InvalidArgumentException
      * @expectedExceptionMessage Attempts count is not positive: -42
      */
     public function testExecAttemptsNegative()

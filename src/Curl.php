@@ -2,7 +2,6 @@
 namespace F3\CurlWrapper;
 
 use InvalidArgumentException;
-use RuntimeException;
 
 /**
  * OOP wrapper for curl_* functions
@@ -104,6 +103,8 @@ class Curl
      * @param int $attempts Connection attempts (default is 1)
      * @param boolean $useException Throw \RuntimeException on failure
      * @return boolean|string
+     * @throws InvalidArgumentException if the number of attempts is invalid
+     * @throws CurlException if curl_exec() returned false
      */
     public function exec($attempts = 1, $useException = false)
     {
@@ -119,7 +120,7 @@ class Curl
             }
         }
         if ($useException && (false === $result)) {
-            throw new RuntimeException(sprintf('Error "%s" after %d attempt(s)', $this->error(), $attempts), $this->errno());
+            throw new CurlException(sprintf('Error "%s" after %d attempt(s)', $this->error(), $attempts), $this->errno());
         }
         return $result;
     }
