@@ -25,6 +25,6 @@ class CurlShareTest extends \PHPUnit_Framework_TestCase
         $c = new CurlShare();
         $this->assertEquals('setopt_foo_opt_val', $c->setOpt('opt', 'val'));
         unset($c);
-        $this->assertEquals(['close_foo'], self::$log);
+        $this->assertEquals('close_foo', array_pop(self::$log));
     }
 }
