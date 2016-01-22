@@ -95,7 +95,7 @@ $curl->setOpt(CURLOPT_RETURNTRANSFER, true);
 try {
     // try 3 times, if unable throw a RuntimeException
     $curl->exec(3, true);
-} catch (RuntimeException $e) {
+} catch (CurlException $e) {
     $message = $e->getMessage();
     $curlErrorNumber = $e->getCode();
 }
