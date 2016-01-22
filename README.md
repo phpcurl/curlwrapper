@@ -2,6 +2,8 @@
 [![Total Downloads](https://img.shields.io/packagist/dt/f3ath/curlwrapper.svg)](https://packagist.org/packages/f3ath/curlwrapper)
 [![Latest Stable Version](https://img.shields.io/packagist/v/f3ath/curlwrapper.svg)](https://packagist.org/packages/f3ath/curlwrapper)
 [![Travis Build](https://travis-ci.org/f3ath/curlwrapper.svg?branch=master)](https://travis-ci.org/f3ath/curlwrapper)
+[![SensioLabs Insight](https://img.shields.io/sensiolabs/i/7f40aa21-520b-490d-b8e9-6748f9495d8d.svg)](https://insight.sensiolabs.com/projects/7f40aa21-520b-490d-b8e9-6748f9495d8d)
+
 
 The simplest OOP-style wrapper for the standard php curl functions.
 The main purpose is to make code that uses curl calls testable. We do it by injecting the Curl object as a dependency instead of calling curl functions directly.
