@@ -81,6 +81,6 @@ class CurlMultiTest extends \PHPUnit_Framework_TestCase
 
         $this->assertEquals('strerror_boo', CurlMulti::strerror('boo'));
         unset($cm);
-        $this->assertEquals(['close_foo'], self::$log);
+        $this->assertEquals('close_foo', array_pop(self::$log));
     }
 }
