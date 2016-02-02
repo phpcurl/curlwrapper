@@ -53,9 +53,9 @@ function curl_unescape($v, $s)
     return 'unescape_'.$v.'_'.$s;
 }
 
-function curl_getinfo($h, $o)
+function curl_getinfo($h, $o = null)
 {
-    return 'getinfo_'.$h.'_'.$o;
+    return 'getinfo_'.$h.'_'.func_num_args().'_'.$o;
 }
 
 function curl_pause($h, $m)
@@ -108,8 +108,8 @@ class CurlTest extends \PHPUnit_Framework_TestCase
         $c->reset();
         $this->assertEquals('reset_foo', array_pop(self::$log));
 
-        $this->assertEquals('getinfo_foo_0', $c->getinfo());
-        $this->assertEquals('getinfo_foo_42', $c->getinfo(42));
+        $this->assertEquals('getinfo_foo_1_', $c->getinfo());
+        $this->assertEquals('getinfo_foo_2_42', $c->getinfo(42));
 
         $this->assertEquals('pause_foo_42', $c->pause(42));
 

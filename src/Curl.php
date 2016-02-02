@@ -133,7 +133,10 @@ class Curl
      */
     public function getInfo($opt = 0)
     {
-        return curl_getinfo($this->handle, $opt);
+        if (func_num_args() > 0) {
+            return curl_getinfo($this->handle, $opt);
+        }
+        return curl_getinfo($this->handle);
     }
 
     /**
