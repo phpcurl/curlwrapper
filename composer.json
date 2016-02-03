@@ -1,8 +1,9 @@
 {
-  "name": "f3ath/curlwrapper",
+  "name": "phpcurl/curlwrapper",
   "type": "library",
   "description": "The simplest OOP wrapper for curl, curl_multi, curl_share functions. Use CURL as a dependency, not hard-coded!",
   "keywords": [
+    "phpcurl"
     "curl",
     "curl_multi",
     "curl_share",
@@ -32,7 +33,7 @@
   },
   "autoload": {
     "psr-4": {
-      "F3\\CurlWrapper\\": "src/"
+      "PHPCurl\\CurlWrapper\\": "src/"
     }
   }
 }
