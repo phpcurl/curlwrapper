@@ -1,5 +1,5 @@
 <?php
-namespace F3\CurlWrapper;
+namespace PHPCurl\CurlWrapper;
 
 function curl_multi_init()
 {
@@ -59,7 +59,7 @@ class CurlMultiTest extends \PHPUnit_Framework_TestCase
 
     public function testAll()
     {
-        $c = $this->getMock('F3\\CurlWrapper\\Curl', array('getHandle'));
+        $c = $this->getMock('PHPCurl\\CurlWrapper\\Curl', array('getHandle'));
         $c->expects($this->any())
             ->method('getHandle')
             ->will($this->returnValue('bar'));

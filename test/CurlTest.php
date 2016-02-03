@@ -1,5 +1,5 @@
 <?php
-namespace F3\CurlWrapper;
+namespace PHPCurl\CurlWrapper;
 
 use InvalidArgumentException;
 
@@ -157,7 +157,7 @@ class CurlTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @expectedException \F3\CurlWrapper\CurlException
+     * @expectedException \PHPCurl\CurlWrapper\CurlException
      * @expectedExceptionMessage Error "omfg" after 2 attempt(s)
      * @expectedExceptionCode 666
      */

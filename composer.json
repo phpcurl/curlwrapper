@@ -3,7 +3,7 @@
   "type": "library",
   "description": "The simplest OOP wrapper for curl, curl_multi, curl_share functions. Use CURL as a dependency, not hard-coded!",
   "keywords": [
-    "phpcurl"
+    "phpcurl",
     "curl",
     "curl_multi",
     "curl_share",

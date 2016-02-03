@@ -1,7 +1,7 @@
 #CurlWrapper for PHP
-[![Total Downloads](https://img.shields.io/packagist/dt/f3ath/curlwrapper.svg)](https://packagist.org/packages/f3ath/curlwrapper)
-[![Latest Stable Version](https://img.shields.io/packagist/v/f3ath/curlwrapper.svg)](https://packagist.org/packages/f3ath/curlwrapper)
-[![Travis Build](https://travis-ci.org/f3ath/curlwrapper.svg?branch=master)](https://travis-ci.org/f3ath/curlwrapper)
+[![Total Downloads](https://img.shields.io/packagist/dt/phpcurl/curlwrapper.svg)](https://packagist.org/packages/phpcurl/curlwrapper)
+[![Latest Stable Version](https://img.shields.io/packagist/v/phpcurl/curlwrapper.svg)](https://packagist.org/packages/phpcurl/curlwrapper)
+[![Travis Build](https://travis-ci.org/phpcurl/curlwrapper.svg?branch=master)](https://travis-ci.org/phpcurl/curlwrapper)
 [![SensioLabs Insight](https://img.shields.io/sensiolabs/i/7f40aa21-520b-490d-b8e9-6748f9495d8d.svg)](https://insight.sensiolabs.com/projects/7f40aa21-520b-490d-b8e9-6748f9495d8d)
 
 
@@ -27,7 +27,7 @@ Testable code. Curl object is injected, so can be easily mocked in PHPUnit.
 ```php
 class MyApiClient {
     private $curl;
-    function __construct(\F3\CurlWrapper\Curl $curl)
+    function __construct(\PHPCurl\CurlWrapper\Curl $curl)
     {
         $this->curl = $curl;
     }
@@ -43,7 +43,7 @@ class MyApiClient {
 
 ##Install
 Via [composer](https://getcomposer.org):
-`$ composer require "f3ath/curlwrapper"`
+`$ composer require "phpcurl/curlwrapper"`
 
 
 ##Basic usage examples. Functional vs OOP style

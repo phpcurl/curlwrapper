@@ -1,5 +1,5 @@
 <?php
-namespace F3\CurlWrapper;
+namespace PHPCurl\CurlWrapper;
 
 use InvalidArgumentException;
 
