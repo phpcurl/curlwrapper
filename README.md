@@ -46,11 +46,11 @@ Via [composer](https://getcomposer.org):
 `$ composer require "phpcurl/curlwrapper"`
 
 
-##Basic usage examples. Functional vs OOP style
+##Basic usage examples. Classic vs OOP style
 
 ###Curl
 
-| Functional                        | OOP |
+| Classic                           | OOP |
 | ---                               | --- |
 | `$h = curl_init($url);`           | `$curl = new Curl($url);` or `$curl->init($url)` |
 | `curl_close($h);`                 | `unset($curl);` |
@@ -69,7 +69,7 @@ Via [composer](https://getcomposer.org):
 
 ###CurlMulti
 
-| Functional                        | OOP |
+| Classic                           | OOP |
 | ---                               | --- |
 | `curl_multi_init();`                           |   `$cm = new CurlMulti();` |
 | `curl_multi_close($h);`                        |   `unset($cm);` |
@@ -83,7 +83,7 @@ Via [composer](https://getcomposer.org):
 
 ###CurlShare
 
-| Functional                        | OOP |
+| Classic                           | OOP |
 | ---                               | --- |
 | `curl_share_init();`                           |   `$cs = new CurlShare();` |
 | `curl_share_close($h);`                        |   `unset($cs);` |
