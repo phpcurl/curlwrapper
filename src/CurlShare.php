@@ -10,23 +10,26 @@ namespace PHPCurl\CurlWrapper;
  * curl_share_close($h);                     unset($cs);
  * $r = curl_share_setopt($h, $opt, $val);   $r = $cs->setOpt($opt, $val);
  *
- * @copyright Alexey Karapetov
- * @author Alexey Karapetov <karapetov@gmail.com>
  * @license http://opensource.org/licenses/mit-license.php The MIT License (MIT)
  */
 class CurlShare
 {
     /**
-     * curl handle
-     *
      * @var resource
      */
     private $handle;
 
-    /**
-     * __construct
-     */
     public function __construct()
+    {
+        $this->init();
+    }
+
+    /**
+     * @see curl_share_init()
+     *
+     * @return void
+     */
+    public function init()
     {
         $this->handle = curl_share_init();
     }

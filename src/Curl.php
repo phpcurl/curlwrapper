@@ -1,44 +1,14 @@
 <?php
 namespace PHPCurl\CurlWrapper;
 
-use InvalidArgumentException;
-
-/**
- * OOP wrapper for curl_* functions
- *
- * Functional and OOP style mapping:
- *
- * $h = curl_init($url);              $curl = new Curl($url); //or $curl->init($url)
- * curl_close($h);                    unset($curl);
- * $e = curl_errno($h);               $e = $curl->errno();
- * $e = curl_error($h);               $e = $curl->error();
- * $i = curl_getinfo($h, $opt);       $i = $curl->getInfo($opt);
- * curl_setopt($h, $opt, $val);       $curl->setOpt($opt, $val);
- * curl_setopt_array($h, $array);     $curl->setOptArray($array);
- * curl_version($age)                 Curl::version($age);
- * curl_strerror($errornum)           Curl::strerror($errornum);
- * $h2 = curl_copy_handle($h);        $curl2 = clone($curl);
- * $result = curl_exec($h);           $result = $curl->exec();
- * $res = curl_pause($h, $mask);      $res = $curl->pause($mask);
- * $res = curl_escape($h, $str);      $res = $curl->escape($str);
- * $res = curl_unescape($h, $str);    $res = $curl->unescape($str);
- *
- * @copyright Alexey Karapetov
- * @author Alexey Karapetov <karapetov@gmail.com>
- * @license http://opensource.org/licenses/mit-license.php The MIT License (MIT)
- */
 class Curl
 {
     /**
-     * curl handle
-     *
      * @var resource
      */
     private $handle;
 
     /**
-     * Ctor
-     *
      * @param string $url URL
      */
     public function __construct($url = null)
@@ -55,26 +25,6 @@ class Curl
     public function init($url = null)
     {
         $this->handle = curl_init($url);
-    }
-
-    /**
-     * Get curl handle
-     *
-     * @return resource
-     */
-    public function getHandle()
-    {
-        return $this->handle;
-    }
-
-    /**
-     * @see curl_close()
-     *
-     * @return void
-     */
-    public function __destruct()
-    {
-        curl_close($this->handle);
     }
 
     /**
@@ -100,29 +50,11 @@ class Curl
     /**
      * @see curl_exec()
      *
-     * @param int $attempts Connection attempts (default is 1)
-     * @param boolean $useException Throw \RuntimeException on failure
      * @return boolean|string
-     * @throws InvalidArgumentException if the number of attempts is invalid
-     * @throws CurlException if curl_exec() returned false
      */
-    public function exec($attempts = 1, $useException = false)
+    public function exec()
     {
-        $attempts = (int) $attempts;
-        if ($attempts < 1) {
-            throw new InvalidArgumentException(sprintf('Attempts count is not positive: %d', $attempts));
-        }
-        $i = 0;
-        while ($i++ < $attempts) {
-            $result = curl_exec($this->handle);
-            if ($result !== false) {
-                break;
-            }
-        }
-        if ($useException && (false === $result)) {
-            throw new CurlException(sprintf('Error "%s" after %d attempt(s)', $this->error(), $attempts), $this->errno());
-        }
-        return $result;
+        return curl_exec($this->handle);
     }
 
     /**
@@ -168,7 +100,7 @@ class Curl
      * @param int $age
      * @return array
      */
-    static public function version($age = CURLVERSION_NOW)
+    public function version($age = CURLVERSION_NOW)
     {
         return curl_version($age);
     }
@@ -177,22 +109,11 @@ class Curl
      * @see curl_strerror()
      *
      * @param int $errornum
-     * @return array
+     * @return string
      */
-    static public function strerror($errornum)
+    public function strError($errornum)
     {
         return curl_strerror($errornum);
-    }
-
-    /**
-     * __clone
-     * Copies handle using curl_copy_handle()
-     *
-     * @return void
-     */
-    public function __clone()
-    {
-        $this->handle = curl_copy_handle($this->handle);
     }
 
     /**
@@ -235,5 +156,25 @@ class Curl
     public function pause($bitmask)
     {
         return curl_pause($this->handle, $bitmask);
+    }
+
+    /**
+     * Get curl handle
+     *
+     * @return resource
+     */
+    public function getHandle()
+    {
+        return $this->handle;
+    }
+
+    public function __destruct()
+    {
+        curl_close($this->handle);
+    }
+
+    public function __clone()
+    {
+        $this->handle = curl_copy_handle($this->handle);
     }
 }
