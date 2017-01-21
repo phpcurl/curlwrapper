@@ -11,5 +11,5 @@ before_script:
   - composer install
 
 script:
-  - vendor/bin/phpcs --standard=PSR2 src/ test/
-  - phpunit --coverage-clover build/logs/clover.xml
+  - vendor/bin/phpcs
+  - vendor/bin/phpunit
