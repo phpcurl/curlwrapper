@@ -1,192 +1,185 @@
 <?php
 namespace PHPCurl\CurlWrapper;
 
-use InvalidArgumentException;
-
 function curl_close($h)
 {
-    CurlTest::$log[] = 'close_'.$h;
+    CurlTest::$log[] = [__FUNCTION__, func_get_args()];
 }
 
 function curl_init($url)
 {
-    return $url;
+    CurlTest::$log[] = [__FUNCTION__, func_get_args()];
+    return 'my_handle';
 }
 
 function curl_setopt($h, $o, $v)
 {
-    return 'setopt_'.$h.'_'.$o.'_'.$v;
+    CurlTest::$log[] = [__FUNCTION__, func_get_args()];
 }
 
 function curl_setopt_array($h, $a)
 {
-    return 'setopt_array_'.$h.'_'.implode('_', array_keys($a)).'_'.implode('_', $a);
+    CurlTest::$log[] = [__FUNCTION__, func_get_args()];
 }
 
 function curl_copy_handle($h)
 {
-    return 'copy_'.$h;
+    CurlTest::$log[] = [__FUNCTION__, func_get_args()];
+    return "{$h}_copy";
 }
 
 function curl_version($v)
 {
-    return 'version_'.$v;
+    CurlTest::$log[] = [__FUNCTION__, func_get_args()];
+    return 123;
 }
 
 function curl_reset($h)
 {
-    CurlTest::$log[] = 'reset_'.$h;
+    CurlTest::$log[] = [__FUNCTION__, func_get_args()];
 }
 
 function curl_strerror($c)
 {
-    return 'strerror_'.$c;
+    CurlTest::$log[] = [__FUNCTION__, func_get_args()];
+    return 'my_strerror';
 }
 
 function curl_escape($v, $s)
 {
-    return 'escape_'.$v.'_'.$s;
+    CurlTest::$log[] = [__FUNCTION__, func_get_args()];
+    return "escaped_{$s}";
 }
 
 function curl_unescape($v, $s)
 {
-    return 'unescape_'.$v.'_'.$s;
+    CurlTest::$log[] = [__FUNCTION__, func_get_args()];
+    return "unescaped_{$s}";
 }
 
 function curl_getinfo($h, $o = null)
 {
-    return 'getinfo_'.$h.'_'.func_num_args().'_'.$o;
+    CurlTest::$log[] = [__FUNCTION__, func_get_args()];
+    return 'my_info';
 }
 
 function curl_pause($h, $m)
 {
-    return 'pause_'.$h.'_'.$m;
+    CurlTest::$log[] = [__FUNCTION__, func_get_args()];
+    return 66;
 }
 
 function curl_exec($h)
 {
-    return CurlTest::$mock->exec($h);
+    CurlTest::$log[] = [__FUNCTION__, func_get_args()];
 }
 
 function curl_error($h)
 {
-    return CurlTest::$mock->error($h);
+    CurlTest::$log[] = [__FUNCTION__, func_get_args()];
+    return 'my_error';
 }
 
 function curl_errno($h)
 {
-    return CurlTest::$mock->errno($h);
+    CurlTest::$log[] = [__FUNCTION__, func_get_args()];
+    return 42;
 }
 
 class CurlTest extends \PHPUnit_Framework_TestCase
 {
-    static public $log = array();
-    static public $mock;
-
-    public function setUp()
-    {
-        self::$mock = $this->getMock('stdClass', array('exec', 'error', 'errno', 'reset'));
-    }
+    static public $log = [];
 
     public function testAll()
     {
-        $empty = new Curl();
-        $this->assertNull($empty->getHandle());
-
-        $c = new Curl('foo');
-
-        $this->assertEquals('setopt_foo_opt_val', $c->setOpt('opt', 'val'));
-
-        $this->assertEquals('setopt_array_foo_0_1_a_b', $c->setOptArray(array('a', 'b')));
-
-        $this->assertEquals('foo', $c->getHandle());
-
-        $this->assertEquals('escape_foo_str', $c->escape('str'));
-
-        $this->assertEquals('unescape_foo_str', $c->unescape('str'));
-
+        $c = new Curl('http://example.com');
+        $this->assertEquals('my_handle', $c->getHandle());
+        $this->assertEquals(123, $c->version());
+        $this->assertEquals('my_strerror', $c->strError(5));
+        $this->assertEquals('escaped_foo', $c->escape('foo'));
+        $this->assertEquals('unescaped_foo', $c->unescape('foo'));
+        $this->assertEquals('my_info', $c->getInfo());
+        $this->assertEquals('my_info', $c->getInfo(42));
+        $this->assertEquals('my_error', $c->error());
+        $this->assertEquals(42, $c->errno());
+        $this->assertEquals(66, $c->pause(6));
+        $c->setOpt(42, true);
+        $c->setOptArray([42 => true]);
+        $c->exec();
         $c->reset();
-        $this->assertEquals('reset_foo', array_pop(self::$log));
-
-        $this->assertEquals('getinfo_foo_1_', $c->getinfo());
-        $this->assertEquals('getinfo_foo_2_42', $c->getinfo(42));
-
-        $this->assertEquals('pause_foo_42', $c->pause(42));
-
-        $clone = clone($c);
-        $this->assertEquals('copy_foo', $clone->getHandle());
-
         unset($c);
-        $this->assertEquals('close_foo', array_pop(self::$log));
 
-        $this->assertEquals('version_'.CURLVERSION_NOW, Curl::version());
-        $this->assertEquals('version_123', Curl::version(123));
-
-        $this->assertEquals('strerror_boo', Curl::strerror('boo'));
+        $this->assertEquals(
+            [
+                [
+                    'PHPCurl\\CurlWrapper\\curl_init',
+                    ['http://example.com'],
+                ],
+                [
+                    'PHPCurl\\CurlWrapper\\curl_version',
+                    [3],
+                ],
+                [
+                    'PHPCurl\\CurlWrapper\\curl_strerror',
+                    [5],
+                ],
+                [
+                    'PHPCurl\\CurlWrapper\\curl_escape',
+                    ['my_handle', 'foo'],
+                ],
+                [
+                    'PHPCurl\\CurlWrapper\\curl_unescape',
+                    ['my_handle', 'foo'],
+                ],
+                [
+                    'PHPCurl\\CurlWrapper\\curl_getinfo',
+                    ['my_handle'],
+                ],
+                [
+                    'PHPCurl\\CurlWrapper\\curl_getinfo',
+                    ['my_handle', 42],
+                ],
+                [
+                    'PHPCurl\\CurlWrapper\\curl_error',
+                    ['my_handle'],
+                ],
+                [
+                    'PHPCurl\\CurlWrapper\\curl_errno',
+                    ['my_handle'],
+                ],
+                [
+                    'PHPCurl\\CurlWrapper\\curl_pause',
+                    ['my_handle', 6],
+                ],
+                [
+                    'PHPCurl\\CurlWrapper\\curl_setopt',
+                    ['my_handle', 42, true],
+                ],
+                [
+                    'PHPCurl\\CurlWrapper\\curl_setopt_array',
+                    ['my_handle', [42 => true]],
+                ],
+                [
+                    'PHPCurl\\CurlWrapper\\curl_exec',
+                    ['my_handle'],
+                ],
+                [
+                    'PHPCurl\\CurlWrapper\\curl_reset',
+                    ['my_handle'],
+                ],
+                [
+                    'PHPCurl\\CurlWrapper\\curl_close',
+                    ['my_handle'],
+                ],
+            ],
+            self::$log
+        );
     }
 
-
-    public function testExecDefaultParameters()
+    public function testClone()
     {
-        self::$mock->expects($this->once())
-            ->method('exec')
-            ->will($this->returnValue('result'));
-
-        $curl = new Curl();
-        $this->assertEquals('result', $curl->exec());
-    }
-
-    public function testExecRetry()
-    {
-        self::$mock->expects($this->exactly(3))
-            ->method('exec')
-            ->will($this->onConsecutiveCalls(false, false, 'ok'));
-
-        $curl = new Curl();
-        $this->assertEquals('ok', $curl->exec(3));
-    }
-
-    public function testExecError()
-    {
-        self::$mock->expects($this->exactly(2))
-            ->method('exec')
-            ->will($this->onConsecutiveCalls(false, false));
-
-        $curl = new Curl();
-        $this->assertEquals(false, $curl->exec(2));
-    }
-
-    /**
-     * @expectedException \PHPCurl\CurlWrapper\CurlException
-     * @expectedExceptionMessage Error "omfg" after 2 attempt(s)
-     * @expectedExceptionCode 666
-     */
-    public function testExecException()
-    {
-        self::$mock->expects($this->exactly(2))
-            ->method('exec')
-            ->will($this->onConsecutiveCalls(false, false));
-
-        self::$mock->expects($this->once())
-            ->method('error')
-            ->will($this->returnValue('omfg'));
-
-        self::$mock->expects($this->once())
-            ->method('errno')
-            ->will($this->returnValue(666));
-
-
-        $curl = new Curl('zzz');
-        $curl->exec(2, true);
-    }
-
-    /**
-     * @expectedException InvalidArgumentException
-     * @expectedExceptionMessage Attempts count is not positive: -42
-     */
-    public function testExecAttemptsNegative()
-    {
-        $curl = new Curl();
-        $curl->exec(-42);
+        $c = new Curl('http://example.com');
+        $clone = clone($c);
+        $this->assertEquals('my_handle_copy', $clone->getHandle());
     }
 }

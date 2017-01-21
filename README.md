@@ -16,7 +16,7 @@ class MyApiClient {
     function call($url)
     {
         $ch = curl_init($url);
-        curl_set_opt($ch, ...)
+        curl_set_opt($ch, /*...*/)
         return curl_exec($ch);
     }
 }
@@ -31,12 +31,12 @@ class MyApiClient {
     {
         $this->curl = $curl;
     }
-    ...
+    //...
     function call($url)
     {
         $this->curl->init($url);
-        $this->curl->setOpt(...)
-        return $this->curl->exec($ch);
+        $this->curl->setOpt(/*...*/)
+        return $this->curl->exec();
     }
 }
 ```
@@ -59,8 +59,8 @@ Via [composer](https://getcomposer.org):
 | `$i = curl_getinfo($h, $opt);`    | `$i = $curl->getInfo($opt);` |
 | `curl_setopt($h, $opt, $val);`    | `$curl->setOpt($opt, $val);` |
 | `curl_setopt_array($h, $array);`  | `$curl->setOptArray($array);` |
-| `curl_version($age)`              | `Curl::version($age);` |
-| `curl_strerror($errornum)`        | `Curl::strerror($errornum);` |
+| `curl_version($age)`              | `$curl->version($age);` |
+| `curl_strerror($errornum)`        | `$curl->strerror($errornum);` |
 | `$h2 = curl_copy_handle($h);`     | `$curl2 = clone($curl);` |
 | `$result = curl_exec($h);`        | `$result = $curl->exec();` |
 | `$res = curl_pause($h, $mask);`   | `$res = $curl->pause($mask);` |
@@ -88,19 +88,3 @@ Via [composer](https://getcomposer.org):
 | `curl_share_init();`                           |   `$cs = new CurlShare();` |
 | `curl_share_close($h);`                        |   `unset($cs);` |
 | `$r = curl_multi_setopt($h, $opt, $val);`      |   `$r = $cs->setOpt($opt, $val);` |
-
-##Auto retry and error control through exceptions
-
-Curl::exec() can automatically retry in case of an error (i.e. network is unstable). It also is able to throw a RuntimeException if an error occurs.
-
-```php
-$curl = new Curl('http://example.com');
-$curl->setOpt(CURLOPT_RETURNTRANSFER, true);
-try {
-    // try 3 times, if unable throw a RuntimeException
-    $curl->exec(3, true);
-} catch (CurlException $e) {
-    $message = $e->getMessage();
-    $curlErrorNumber = $e->getCode();
-}
-```

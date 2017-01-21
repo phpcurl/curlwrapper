@@ -16,23 +16,21 @@ namespace PHPCurl\CurlWrapper;
  * $i = curl_multi_select($mh, $timeout);        $i = $cm->select($timeout);
  * $r = curl_multi_setopt($h, $opt, $val);       $r = $cm->setOpt($opt, $val);
  *
- * @copyright Alexey Karapetov
- * @author Alexey Karapetov <karapetov@gmail.com>
  * @license http://opensource.org/licenses/mit-license.php The MIT License (MIT)
  */
 class CurlMulti
 {
     /**
-     * curl handle
-     *
      * @var resource
      */
     private $handle;
 
-    /**
-     * __construct
-     */
     public function __construct()
+    {
+        $this->init();
+    }
+
+    public function init()
     {
         $this->handle = curl_multi_init();
     }
@@ -129,7 +127,7 @@ class CurlMulti
      * @param int $errornum
      * @return string
      */
-    static public function strerror($errornum)
+    public function strError($errornum)
     {
         return curl_multi_strerror($errornum);
     }
