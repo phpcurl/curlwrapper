@@ -2,7 +2,7 @@
 [![Total Downloads](https://img.shields.io/packagist/dt/phpcurl/curlwrapper.svg)](https://packagist.org/packages/phpcurl/curlwrapper)
 [![Latest Stable Version](https://img.shields.io/packagist/v/phpcurl/curlwrapper.svg)](https://packagist.org/packages/phpcurl/curlwrapper)
 [![Travis Build](https://travis-ci.org/phpcurl/curlwrapper.svg?branch=master)](https://travis-ci.org/phpcurl/curlwrapper)
-[![SensioLabs Insight](https://img.shields.io/sensiolabs/i/9d016ee6-7704-4620-ae27-3c1ced9dfbe2.svg)](https://insight.sensiolabs.com/projects/9d016ee6-7704-4620-ae27-3c1ced9dfbe2)
+[![SensioLabs Insight](https://img.shields.io/sensiolabs/i/f6dd716c-7729-46f2-903f-12a53e427841.svg)](https://insight.sensiolabs.com/projects/f6dd716c-7729-46f2-903f-12a53e427841)
 
 
 The simplest OOP-style wrapper for the standard php curl functions.
