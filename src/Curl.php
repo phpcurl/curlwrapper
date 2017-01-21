@@ -1,7 +1,7 @@
 <?php
 namespace PHPCurl\CurlWrapper;
 
-class Curl
+class Curl implements CurlInterface
 {
     /**
      * @var resource
@@ -17,10 +17,7 @@ class Curl
     }
 
     /**
-     * @see curl_init()
-     *
-     * @param string $url URL
-     * @return void
+     * @inheritdoc
      */
     public function init($url = null)
     {
@@ -28,9 +25,7 @@ class Curl
     }
 
     /**
-     * @see curl_errno()
-     *
-     * @return int
+     * @inheritdoc
      */
     public function errno()
     {
@@ -38,9 +33,7 @@ class Curl
     }
 
     /**
-     * @see curl_error()
-     *
-     * @return string
+     * @inheritdoc
      */
     public function error()
     {
@@ -48,9 +41,7 @@ class Curl
     }
 
     /**
-     * @see curl_exec()
-     *
-     * @return boolean|string
+     * @inheritdoc
      */
     public function exec()
     {
@@ -58,10 +49,7 @@ class Curl
     }
 
     /**
-     * @see curl_getinfo()
-     *
-     * @param int $opt CURLINFO_*
-     * @return array|string
+     * @inheritdoc
      */
     public function getInfo($opt = 0)
     {
@@ -72,11 +60,7 @@ class Curl
     }
 
     /**
-     * @see curl_setopt()
-     *
-     * @param int   $option Option code
-     * @param mixed $value  Option value
-     * @return boolean
+     * @inheritdoc
      */
     public function setOpt($option, $value)
     {
@@ -84,10 +68,7 @@ class Curl
     }
 
     /**
-     * @see curl_setopt_array()
-     *
-     * @param array $options Options
-     * @return boolean
+     * @inheritdoc
      */
     public function setOptArray(array $options)
     {
@@ -95,10 +76,7 @@ class Curl
     }
 
     /**
-     * @see curl_version()
-     *
-     * @param int $age
-     * @return array
+     * @inheritdoc
      */
     public function version($age = CURLVERSION_NOW)
     {
@@ -106,10 +84,7 @@ class Curl
     }
 
     /**
-     * @see curl_strerror()
-     *
-     * @param int $errornum
-     * @return string
+     * @inheritdoc
      */
     public function strError($errornum)
     {
@@ -117,10 +92,7 @@ class Curl
     }
 
     /**
-     * @see curl_escape()
-     *
-     * @param string $str
-     * @return string
+     * @inheritdoc
      */
     public function escape($str)
     {
@@ -128,10 +100,7 @@ class Curl
     }
 
     /**
-     * @see curl_unescape()
-     *
-     * @param string $str
-     * @return string
+     * @inheritdoc
      */
     public function unescape($str)
     {
@@ -139,19 +108,15 @@ class Curl
     }
 
     /**
-     * @see curl_reset()
-     *
-     * @return void
+     * @inheritdoc
      */
     public function reset()
     {
         curl_reset($this->handle);
     }
+
     /**
-     * @see curl_pause()
-     *
-     * @param int $bitmask
-     * @return int
+     * @inheritdoc
      */
     public function pause($bitmask)
     {
@@ -159,9 +124,7 @@ class Curl
     }
 
     /**
-     * Get curl handle
-     *
-     * @return resource
+     * @inheritdoc
      */
     public function getHandle()
     {

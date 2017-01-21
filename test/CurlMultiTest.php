@@ -59,9 +59,7 @@ class CurlMultiTest extends \PHPUnit_Framework_TestCase
 
     public function testAll()
     {
-        $c = $this->getMockBuilder('PHPCurl\\CurlWrapper\\Curl')
-            ->setMethods(['getHandle'])
-            ->getMock();
+        $c = $this->getMockForAbstractClass(CurlInterface::class);
         $c->expects($this->any())
             ->method('getHandle')
             ->will($this->returnValue('bar'));
@@ -74,13 +72,10 @@ class CurlMultiTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('getcontent_bar', $cm->getContent($c));
         $this->assertEquals('select_foo_1', $cm->select());
         $this->assertEquals('select_foo_2.3', $cm->select(2.3));
-
         $this->assertEquals('info_read_foo', $cm->infoRead($msgs));
         $this->assertEquals(42, $msgs);
-
         $this->assertEquals('exec_foo', $cm->exec($running));
         $this->assertEquals(24, $running);
-
         $this->assertEquals('strerror_boo', $cm->strError('boo'));
         unset($cm);
         $this->assertEquals('close_foo', array_pop(self::$log));
