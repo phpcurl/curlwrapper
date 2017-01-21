@@ -59,7 +59,9 @@ class CurlMultiTest extends \PHPUnit_Framework_TestCase
 
     public function testAll()
     {
-        $c = $this->createMock('PHPCurl\\CurlWrapper\\Curl');
+        $c = $this->getMockBuilder('PHPCurl\\CurlWrapper\\Curl')
+            ->setMethods(['getHandle'])
+            ->getMock();
         $c->expects($this->any())
             ->method('getHandle')
             ->will($this->returnValue('bar'));
