@@ -1,4 +1,4 @@
-#CurlWrapper for PHP
+# CurlWrapper for PHP
 [![Total Downloads](https://img.shields.io/packagist/dt/phpcurl/curlwrapper.svg)](https://packagist.org/packages/phpcurl/curlwrapper)
 [![Latest Stable Version](https://img.shields.io/packagist/v/phpcurl/curlwrapper.svg)](https://packagist.org/packages/phpcurl/curlwrapper)
 [![Travis Build](https://travis-ci.org/phpcurl/curlwrapper.svg?branch=master)](https://travis-ci.org/phpcurl/curlwrapper)
@@ -41,14 +41,14 @@ class MyApiClient {
 }
 ```
 
-##Install
+## Install
 Via [composer](https://getcomposer.org):
 `$ composer require "phpcurl/curlwrapper"`
 
 
-##Basic usage examples. Classic vs OOP style
+## Basic usage examples. Classic vs OOP style
 
-###Curl
+### Curl
 
 | Classic                           | OOP |
 | ---                               | --- |
@@ -67,7 +67,7 @@ Via [composer](https://getcomposer.org):
 | `$res = curl_escape($h, $str);`   | `$res = $curl->escape($str);` |
 | `$res = curl_unescape($h, $str);` | `$res = $curl->unescape($str);` |
 
-###CurlMulti
+### CurlMulti
 
 | Classic                           | OOP |
 | ---                               | --- |
@@ -81,7 +81,7 @@ Via [composer](https://getcomposer.org):
 | `$i = curl_multi_select($mh, $timeout);`       |   `$i = $cm->select($timeout);` |
 | `$r = curl_multi_setopt($h, $opt, $val);`      |   `$r = $cm->setOpt($opt, $val);` |
 
-###CurlShare
+### CurlShare
 
 | Classic                           | OOP |
 | ---                               | --- |
