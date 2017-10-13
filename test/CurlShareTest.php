@@ -13,7 +13,7 @@ function curl_share_init()
 
 function curl_share_setopt($h, $o, $v)
 {
-    return 'setopt_'.$h.'_'.$o.'_'.$v;
+    return $h === 'foo' && $o === 0 && $v === 'val';
 }
 
 class CurlShareTest extends \PHPUnit_Framework_TestCase
@@ -23,7 +23,7 @@ class CurlShareTest extends \PHPUnit_Framework_TestCase
     public function testAll()
     {
         $c = new CurlShare();
-        $this->assertEquals('setopt_foo_opt_val', $c->setOpt('opt', 'val'));
+        $this->assertTrue($c->setOpt(0, 'val'));
         unset($c);
         $this->assertEquals('close_foo', array_pop(self::$log));
     }

@@ -15,11 +15,13 @@ function curl_init($url)
 function curl_setopt($h, $o, $v)
 {
     CurlTest::$log[] = [__FUNCTION__, func_get_args()];
+    return true;
 }
 
 function curl_setopt_array($h, $a)
 {
     CurlTest::$log[] = [__FUNCTION__, func_get_args()];
+    return true;
 }
 
 function curl_copy_handle($h)
@@ -31,7 +33,7 @@ function curl_copy_handle($h)
 function curl_version($v)
 {
     CurlTest::$log[] = [__FUNCTION__, func_get_args()];
-    return 123;
+    return [123];
 }
 
 function curl_reset($h)
@@ -94,7 +96,7 @@ class CurlTest extends \PHPUnit_Framework_TestCase
     {
         $c = new Curl('http://example.com');
         $this->assertEquals('my_handle', $c->getHandle());
-        $this->assertEquals(123, $c->version());
+        $this->assertEquals([123], $c->version());
         $this->assertEquals('my_strerror', $c->strError(5));
         $this->assertEquals('escaped_foo', $c->escape('foo'));
         $this->assertEquals('unescaped_foo', $c->unescape('foo'));
