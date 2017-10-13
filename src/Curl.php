@@ -118,7 +118,7 @@ class Curl implements CurlInterface
     /**
      * @inheritdoc
      */
-    public function pause(int $bitmask): int 
+    public function pause(int $bitmask): int
     {
         return curl_pause($this->handle, $bitmask);
     }
@@ -134,7 +134,7 @@ class Curl implements CurlInterface
     public function __destruct()
     {
         curl_close($this->handle);
-     }
+    }
 
     public function __clone()
     {
