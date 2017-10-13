@@ -1,20 +1,15 @@
-sudo: false
 language: php
-matrix:
-  fast_finish: true
-  include:
-    - php: hhvm
-      sudo: true
-      dist: trusty
-      env: HHVMPHP7="yes"
 php:
   - '7.0'
   - '7.1'
+  - hhvm
   - nightly
 
+allow_failures:
+  - hhvm
+
 before_script:
-  - composer install --ignore-platform-reqs
-  - if [[ $HHVMPHP7 == "yes" ]]; then echo hhvm.php7.all=1 >> /etc/hhvm/php.ini; fi
+  - composer install
 
 script:
   - vendor/bin/phpcs
