@@ -9,21 +9,21 @@ interface CurlInterface
      * @param string $url URL
      * @return void
      */
-    public function init($url = null);
+    public function init(string $url = null);
 
     /**
      * @see curl_errno()
      *
      * @return int
      */
-    public function errno();
+    public function errno(): int;
 
     /**
      * @see curl_error()
      *
      * @return string
      */
-    public function error();
+    public function error(): string;
 
     /**
      * @see curl_exec()
@@ -38,7 +38,7 @@ interface CurlInterface
      * @param int $opt CURLINFO_*
      * @return array|string
      */
-    public function getInfo($opt = 0);
+    public function getInfo(int $opt = 0);
 
     /**
      * @see curl_setopt()
@@ -47,7 +47,7 @@ interface CurlInterface
      * @param mixed $value  Option value
      * @return boolean
      */
-    public function setOpt($option, $value);
+    public function setOpt(int $option, $value): bool;
 
     /**
      * @see curl_setopt_array()
@@ -55,7 +55,7 @@ interface CurlInterface
      * @param array $options Options
      * @return boolean
      */
-    public function setOptArray(array $options);
+    public function setOptArray(array $options): bool;
 
     /**
      * @see curl_version()
@@ -63,7 +63,7 @@ interface CurlInterface
      * @param int $age
      * @return array
      */
-    public function version($age = CURLVERSION_NOW);
+    public function version(int $age = CURLVERSION_NOW): array;
 
     /**
      * @see curl_strerror()
@@ -71,7 +71,7 @@ interface CurlInterface
      * @param int $errornum
      * @return string
      */
-    public function strError($errornum);
+    public function strError(int $errornum): string;
 
     /**
      * @see curl_escape()
@@ -79,7 +79,7 @@ interface CurlInterface
      * @param string $str
      * @return string
      */
-    public function escape($str);
+    public function escape(string $str): string;
 
     /**
      * @see curl_unescape()
@@ -87,7 +87,7 @@ interface CurlInterface
      * @param string $str
      * @return string
      */
-    public function unescape($str);
+    public function unescape(string $str): string;
 
     /**
      * @see curl_reset()
@@ -102,7 +102,7 @@ interface CurlInterface
      * @param int $bitmask
      * @return int
      */
-    public function pause($bitmask);
+    public function pause(int $bitmask): int;
 
     /**
      * Get curl handle

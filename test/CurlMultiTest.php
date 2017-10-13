@@ -8,22 +8,22 @@ function curl_multi_init()
 
 function curl_multi_setopt($h, $o, $v)
 {
-    return 'setopt_'.$h.'_'.$o.'_'.$v;
+    return $h === 'foo' && $o === 0 && $v === 'val';
 }
 
 function curl_multi_add_handle($h, $c)
 {
-    return 'add_handle_'.$h.'_'.$c;
+    return ($h === 'foo' && $c === 'bar') ? 1 : 0;
 }
 
 function curl_multi_remove_handle($h, $c)
 {
-    return 'remove_handle_'.$h.'_'.$c;
+    return ($h === 'foo' && $c === 'bar') ? 1 : 0;
 }
 
 function curl_multi_getcontent($h)
 {
-    return 'getcontent_'.$h;
+    return $h;
 }
 
 function curl_multi_strerror($c)
@@ -33,7 +33,7 @@ function curl_multi_strerror($c)
 
 function curl_multi_select($h, $t)
 {
-    return 'select_'.$h.'_'.$t;
+    return $h === 'foo' ? $t : 0.0;
 }
 
 function curl_multi_close($h)
@@ -44,13 +44,13 @@ function curl_multi_close($h)
 function curl_multi_info_read($h, &$m)
 {
     $m = 42;
-    return 'info_read_'.$h;
+    return [$h => $m];
 }
 
 function curl_multi_exec($h, &$r)
 {
     $r = 24;
-    return 'exec_'.$h;
+    return $h === 'foo' ?  1 : 0;
 }
 
 class CurlMultiTest extends \PHPUnit_Framework_TestCase
@@ -66,17 +66,18 @@ class CurlMultiTest extends \PHPUnit_Framework_TestCase
 
         $cm = new CurlMulti();
         $this->assertEquals('foo', $cm->getHandle());
-        $this->assertEquals('setopt_foo_opt_val', $cm->setOpt('opt', 'val'));
-        $this->assertEquals('add_handle_foo_bar', $cm->add($c));
-        $this->assertEquals('remove_handle_foo_bar', $cm->remove($c));
-        $this->assertEquals('getcontent_bar', $cm->getContent($c));
-        $this->assertEquals('select_foo_1', $cm->select());
-        $this->assertEquals('select_foo_2.3', $cm->select(2.3));
-        $this->assertEquals('info_read_foo', $cm->infoRead($msgs));
+        $this->assertTrue($cm->setOpt(0, 'val'));
+        $this->assertEquals(1, $cm->add($c));
+        $this->assertEquals(1, $cm->remove($c));
+        $this->assertEquals('bar', $cm->getContent($c));
+        $this->assertEquals(1, $cm->select());
+        $this->assertEquals(2, $cm->select(2.3));
+        $this->assertEquals(['foo' => 42], $cm->infoRead($msgs));
         $this->assertEquals(42, $msgs);
-        $this->assertEquals('exec_foo', $cm->exec($running));
+        $running = 0;
+        $this->assertEquals(1, $cm->exec($running));
         $this->assertEquals(24, $running);
-        $this->assertEquals('strerror_boo', $cm->strError('boo'));
+        $this->assertEquals('strerror_1', $cm->strError(1));
         unset($cm);
         $this->assertEquals('close_foo', array_pop(self::$log));
     }
