@@ -17,5 +17,5 @@ interface CurlShareInterface
      * @param mixed $val
      * @return boolean
      */
-    public function setOpt($opt, $val);
+    public function setOpt(int $opt, $val): bool;
 }

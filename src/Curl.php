@@ -11,7 +11,7 @@ class Curl implements CurlInterface
     /**
      * @param string $url URL
      */
-    public function __construct($url = null)
+    public function __construct(string $url = null)
     {
         $this->init($url);
     }
@@ -19,7 +19,7 @@ class Curl implements CurlInterface
     /**
      * @inheritdoc
      */
-    public function init($url = null)
+    public function init(string $url = null)
     {
         $this->handle = curl_init($url);
     }
@@ -27,7 +27,7 @@ class Curl implements CurlInterface
     /**
      * @inheritdoc
      */
-    public function errno()
+    public function errno(): int
     {
         return curl_errno($this->handle);
     }
@@ -35,7 +35,7 @@ class Curl implements CurlInterface
     /**
      * @inheritdoc
      */
-    public function error()
+    public function error(): string
     {
         return curl_error($this->handle);
     }
@@ -51,7 +51,7 @@ class Curl implements CurlInterface
     /**
      * @inheritdoc
      */
-    public function getInfo($opt = 0)
+    public function getInfo(int $opt = 0)
     {
         if (func_num_args() > 0) {
             return curl_getinfo($this->handle, $opt);
@@ -62,7 +62,7 @@ class Curl implements CurlInterface
     /**
      * @inheritdoc
      */
-    public function setOpt($option, $value)
+    public function setOpt(int $option, $value): bool
     {
         return curl_setopt($this->handle, $option, $value);
     }
@@ -70,7 +70,7 @@ class Curl implements CurlInterface
     /**
      * @inheritdoc
      */
-    public function setOptArray(array $options)
+    public function setOptArray(array $options): bool
     {
         return curl_setopt_array($this->handle, $options);
     }
@@ -78,7 +78,7 @@ class Curl implements CurlInterface
     /**
      * @inheritdoc
      */
-    public function version($age = CURLVERSION_NOW)
+    public function version(int $age = CURLVERSION_NOW): array
     {
         return curl_version($age);
     }
@@ -86,7 +86,7 @@ class Curl implements CurlInterface
     /**
      * @inheritdoc
      */
-    public function strError($errornum)
+    public function strError(int $errornum): string
     {
         return curl_strerror($errornum);
     }
@@ -94,7 +94,7 @@ class Curl implements CurlInterface
     /**
      * @inheritdoc
      */
-    public function escape($str)
+    public function escape(string $str): string
     {
         return curl_escape($this->handle, $str);
     }
@@ -102,7 +102,7 @@ class Curl implements CurlInterface
     /**
      * @inheritdoc
      */
-    public function unescape($str)
+    public function unescape(string $str): string
     {
         return curl_unescape($this->handle, $str);
     }
@@ -118,7 +118,7 @@ class Curl implements CurlInterface
     /**
      * @inheritdoc
      */
-    public function pause($bitmask)
+    public function pause(int $bitmask): int 
     {
         return curl_pause($this->handle, $bitmask);
     }
@@ -134,7 +134,7 @@ class Curl implements CurlInterface
     public function __destruct()
     {
         curl_close($this->handle);
-    }
+     }
 
     public function __clone()
     {

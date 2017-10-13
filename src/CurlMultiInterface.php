@@ -18,7 +18,7 @@ interface CurlMultiInterface
      * @param CurlInterface $curl Curl object to add
      * @return int
      */
-    public function add(CurlInterface $curl);
+    public function add(CurlInterface $curl): int;
 
     /**
      * @see curl_multi_exec()
@@ -26,7 +26,7 @@ interface CurlMultiInterface
      * @param int $stillRunning Flag
      * @return int (One of CURLM_* constants)
      */
-    public function exec(&$stillRunning);
+    public function exec(int &$stillRunning): int;
 
     /**
      * @see curl_multi_getcontent()
@@ -34,7 +34,7 @@ interface CurlMultiInterface
      * @param CurlInterface $curl
      * @return string
      */
-    public function getContent(CurlInterface $curl);
+    public function getContent(CurlInterface $curl): string;
 
     /**
      * @see curl_multi_info_read()
@@ -42,7 +42,7 @@ interface CurlMultiInterface
      * @param int $msgs
      * @return array
      */
-    public function infoRead(&$msgs = null);
+    public function infoRead(int &$msgs = null): array;
 
     /**
      * @see curl_multi_remove_handle()
@@ -50,7 +50,7 @@ interface CurlMultiInterface
      * @param CurlInterface $curl Handle to remove
      * @return int
      */
-    public function remove(CurlInterface $curl);
+    public function remove(CurlInterface $curl): int;
 
     /**
      * @see curl_multi_select()
@@ -58,7 +58,7 @@ interface CurlMultiInterface
      * @param float $timeout Timeout
      * @return int
      */
-    public function select($timeout = 1.0);
+    public function select(float $timeout = 1.0): int;
 
     /**
      * @see curl_multi_strerror
@@ -66,7 +66,7 @@ interface CurlMultiInterface
      * @param int $errornum
      * @return string
      */
-    public function strError($errornum);
+    public function strError(int $errornum): string;
 
     /**
      * @see curl_multi_setopt
@@ -75,5 +75,5 @@ interface CurlMultiInterface
      * @param mixed $val
      * @return boolean
      */
-    public function setOpt($opt, $val);
+    public function setOpt(int $opt, $val): bool;
 }

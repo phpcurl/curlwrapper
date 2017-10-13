@@ -24,7 +24,7 @@ class CurlShare implements CurlShareInterface
     /**
      * @inheritdoc
      */
-    public function setOpt($opt, $val)
+    public function setOpt(int $opt, $val): bool
     {
         return curl_share_setopt($this->handle, $opt, $val);
     }
