@@ -50,41 +50,41 @@ Via [composer](https://getcomposer.org):
 
 ### Curl
 
-| Classic                           | OOP |
-| ---                               | --- |
-| `$h = curl_init($url);`           | `$curl = new Curl($url);` or `$curl->init($url)` |
-| `curl_close($h);`                 | `unset($curl);` |
-| `$e = curl_errno($h);`            | `$e = $curl->errno();` |
-| `$e = curl_error($h);`            | `$e = $curl->error();` |
-| `$i = curl_getinfo($h, $opt);`    | `$i = $curl->getInfo($opt);` |
-| `curl_setopt($h, $opt, $val);`    | `$curl->setOpt($opt, $val);` |
-| `curl_setopt_array($h, $array);`  | `$curl->setOptArray($array);` |
-| `curl_version($age)`              | `$curl->version($age);` |
-| `curl_strerror($errornum)`        | `$curl->strerror($errornum);` |
-| `$h2 = curl_copy_handle($h);`     | `$curl2 = clone($curl);` |
-| `$result = curl_exec($h);`        | `$result = $curl->exec();` |
-| `$res = curl_pause($h, $mask);`   | `$res = $curl->pause($mask);` |
-| `$res = curl_escape($h, $str);`   | `$res = $curl->escape($str);` |
-| `$res = curl_unescape($h, $str);` | `$res = $curl->unescape($str);` |
+| Classic                          | OOP |
+| ---                              | --- |
+| `$h = curl_init($url)`           | `$curl = new Curl($url)` or `$curl->init($url)` |
+| `curl_close($h)`                 | `unset($curl)` |
+| `$e = curl_errno($h)`            | `$e = $curl->errno()` |
+| `$e = curl_error($h)`            | `$e = $curl->error()` |
+| `$i = curl_getinfo($h, $opt)`    | `$i = $curl->getInfo($opt)` |
+| `curl_setopt($h, $opt, $val)`    | `$curl->setOpt($opt, $val)` |
+| `curl_setopt_array($h, $array)`  | `$curl->setOptArray($array)` |
+| `curl_version($age)`             | `$curl->version($age)` |
+| `curl_strerror($errornum)`       | `$curl->strerror($errornum)` |
+| `$h2 = curl_copy_handle($h)`     | `$curl2 = clone($curl)` |
+| `$result = curl_exec($h)`        | `$result = $curl->exec()` |
+| `$res = curl_pause($h, $mask)`   | `$res = $curl->pause($mask)` |
+| `$res = curl_escape($h, $str)`   | `$res = $curl->escape($str)` |
+| `$res = curl_unescape($h, $str)` | `$res = $curl->unescape($str)` |
 
 ### CurlMulti
 
-| Classic                           | OOP |
-| ---                               | --- |
-| `curl_multi_init();`                           |   `$cm = new CurlMulti();` |
-| `curl_multi_close($h);`                        |   `unset($cm);` |
-| `$i = curl_multi_add_handle($mh, $ch);`        |   `$i = $cm->add($curl);` |
-| `$i = curl_multi_remove_handle($mh, $ch);`     |   `$i = $cm->remove($curl);` |
-| `$i = curl_multi_exec($mh, $running);`         |   `$i = $cm->exec($running);` |
-| `$s = curl_multi_getcontent($ch);`             |   `$s = $cm->getContent($curl);` |
-| `$a = curl_multi_info_read($mh, $msgs);`       |   `$a = $cm->infoRead($msgs);` |
-| `$i = curl_multi_select($mh, $timeout);`       |   `$i = $cm->select($timeout);` |
-| `$r = curl_multi_setopt($h, $opt, $val);`      |   `$r = $cm->setOpt($opt, $val);` |
+| Classic                                    | OOP |
+| ---                                        | --- |
+| `curl_multi_init()`                        |   `$cm = new CurlMulti()` |
+| `curl_multi_close($h)`                     |   `unset($cm)` |
+| `$i = curl_multi_add_handle($mh, $ch)`     |   `$i = $cm->add($curl)` |
+| `$i = curl_multi_remove_handle($mh, $ch)`  |   `$i = $cm->remove($curl)` |
+| `$i = curl_multi_exec($mh, $running)`      |   `$i = $cm->exec($running)` |
+| `$s = curl_multi_getcontent($ch)`          |   `$s = $cm->getContent($curl)` |
+| `$a = curl_multi_info_read($mh, $msgs)`    |   `$a = $cm->infoRead($msgs)` |
+| `$i = curl_multi_select($mh, $timeout)`    |   `$i = $cm->select($timeout)` |
+| `$r = curl_multi_setopt($h, $opt, $val)`   |   `$r = $cm->setOpt($opt, $val)` |
 
 ### CurlShare
 
-| Classic                           | OOP |
-| ---                               | --- |
-| `curl_share_init();`                           |   `$cs = new CurlShare();` |
-| `curl_share_close($h);`                        |   `unset($cs);` |
-| `$r = curl_multi_setopt($h, $opt, $val);`      |   `$r = $cs->setOpt($opt, $val);` |
+| Classic                                  | OOP |
+| ---                                      | --- |
+| `curl_share_init()`                      |   `$cs = new CurlShare()` |
+| `curl_share_close($h)`                   |   `unset($cs)` |
+| `$r = curl_multi_setopt($h, $opt, $val)` |   `$r = $cs->setOpt($opt, $val)` |
