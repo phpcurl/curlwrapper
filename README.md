@@ -27,7 +27,7 @@ Testable code. Curl object is injected, so can be easily mocked in PHPUnit.
 ```php
 class MyApiClient {
     private $curl;
-    function __construct(\PHPCurl\CurlWrapper\Curl $curl)
+    function __construct(\PHPCurl\CurlWrapper\CurlInterface $curl)
     {
         $this->curl = $curl;
     }
