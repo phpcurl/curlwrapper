@@ -26,15 +26,15 @@ interface CurlMultiInterface
      * @param int $stillRunning Flag
      * @return int (One of CURLM_* constants)
      */
-    public function exec(int &$stillRunning): int;
+    public function exec(int &$stillRunning = null): int;
 
     /**
      * @see curl_multi_getcontent()
      *
      * @param CurlInterface $curl
-     * @return string
+     * @return string|null
      */
-    public function getContent(CurlInterface $curl): string;
+    public function getContent(CurlInterface $curl): ?string;
 
     /**
      * @see curl_multi_info_read()

@@ -1,4 +1,5 @@
 <?php
+
 namespace PHPCurl\CurlWrapper;
 
 class CurlMulti implements CurlMultiInterface
@@ -40,7 +41,7 @@ class CurlMulti implements CurlMultiInterface
     /**
      * @inheritdoc
      */
-    public function exec(int &$stillRunning): int
+    public function exec(int &$stillRunning = null): int
     {
         return curl_multi_exec($this->handle, $stillRunning);
     }
@@ -48,7 +49,7 @@ class CurlMulti implements CurlMultiInterface
     /**
      * @inheritdoc
      */
-    public function getContent(CurlInterface $curl): string
+    public function getContent(CurlInterface $curl): ?string
     {
         return curl_multi_getcontent($curl->getHandle());
     }
