@@ -1,6 +1,8 @@
 <?php
 namespace PHPCurl\CurlWrapper;
 
+use PHPUnit\Framework\TestCase;
+
 function curl_close($h)
 {
     CurlTest::$log[] = [__FUNCTION__, func_get_args()];
@@ -88,7 +90,7 @@ function curl_errno($h)
     return 42;
 }
 
-class CurlTest extends \PHPUnit_Framework_TestCase
+class CurlTest extends TestCase
 {
     static public $log = [];
 
@@ -119,7 +121,7 @@ class CurlTest extends \PHPUnit_Framework_TestCase
                 ],
                 [
                     'PHPCurl\\CurlWrapper\\curl_version',
-                    [3],
+                    [\CURLVERSION_NOW],
                 ],
                 [
                     'PHPCurl\\CurlWrapper\\curl_strerror',

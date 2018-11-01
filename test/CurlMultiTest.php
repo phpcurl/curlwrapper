@@ -1,5 +1,8 @@
 <?php
+
 namespace PHPCurl\CurlWrapper;
+
+use PHPUnit\Framework\TestCase;
 
 function curl_multi_init()
 {
@@ -28,7 +31,7 @@ function curl_multi_getcontent($h)
 
 function curl_multi_strerror($c)
 {
-    return 'strerror_'.$c;
+    return 'strerror_' . $c;
 }
 
 function curl_multi_select($h, $t)
@@ -38,7 +41,7 @@ function curl_multi_select($h, $t)
 
 function curl_multi_close($h)
 {
-    CurlMultiTest::$log[] = 'close_'.$h;
+    CurlMultiTest::$log[] = 'close_' . $h;
 }
 
 function curl_multi_info_read($h, &$m)
@@ -50,12 +53,12 @@ function curl_multi_info_read($h, &$m)
 function curl_multi_exec($h, &$r)
 {
     $r = 24;
-    return $h === 'foo' ?  1 : 0;
+    return $h === 'foo' ? 1 : 0;
 }
 
-class CurlMultiTest extends \PHPUnit_Framework_TestCase
+class CurlMultiTest extends TestCase
 {
-    static public $log = array();
+    static public $log = [];
 
     public function testAll()
     {

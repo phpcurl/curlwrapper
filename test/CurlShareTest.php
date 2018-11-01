@@ -1,6 +1,8 @@
 <?php
 namespace PHPCurl\CurlWrapper;
 
+use PHPUnit\Framework\TestCase;
+
 function curl_share_close($h)
 {
     CurlShareTest::$log[] = 'close_'.$h;
@@ -16,7 +18,7 @@ function curl_share_setopt($h, $o, $v)
     return $h === 'foo' && $o === 0 && $v === 'val';
 }
 
-class CurlShareTest extends \PHPUnit_Framework_TestCase
+class CurlShareTest extends TestCase
 {
     static public $log = array();
 
