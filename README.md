@@ -5,7 +5,7 @@
 [![SensioLabs Insight](https://img.shields.io/sensiolabs/i/f6dd716c-7729-46f2-903f-12a53e427841.svg)](https://insight.sensiolabs.com/projects/f6dd716c-7729-46f2-903f-12a53e427841)
 
 
-The simplest OOP-style wrapper for the standard php curl functions.
+The simplest OOP-style wrapper for the standard php curl functions with no external dependencies.
 The main purpose is to make code that uses curl calls testable. We do it by injecting the Curl object as a dependency instead of calling curl functions directly.
 
 
