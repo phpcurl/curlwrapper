@@ -2,6 +2,8 @@
 
 namespace PHPCurl\CurlWrapper;
 
+use PHPUnit\Framework\TestCase;
+
 function curl_multi_init()
 {
     return 'foo';
@@ -54,7 +56,7 @@ function curl_multi_exec($h, &$r)
     return $h === 'foo' ? 1 : 0;
 }
 
-class CurlMultiTest extends \PHPUnit_Framework_TestCase
+class CurlMultiTest extends TestCase
 {
     static public $log = [];
 
