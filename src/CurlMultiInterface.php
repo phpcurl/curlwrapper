@@ -1,4 +1,5 @@
-<?php
+<?php declare(strict_types=1);
+
 namespace PHPCurl\CurlWrapper;
 
 interface CurlMultiInterface
@@ -40,17 +41,17 @@ interface CurlMultiInterface
      * @see curl_multi_info_read()
      *
      * @param int $msgs
-     * @return array
+     * @return array|false
      */
-    public function infoRead(int &$msgs = null): array;
+    public function infoRead(int &$msgs = null);
 
     /**
      * @see curl_multi_remove_handle()
      *
      * @param CurlInterface $curl Handle to remove
-     * @return int
+     * @return int|false
      */
-    public function remove(CurlInterface $curl): int;
+    public function remove(CurlInterface $curl);
 
     /**
      * @see curl_multi_select()
@@ -66,7 +67,7 @@ interface CurlMultiInterface
      * @param int $errornum
      * @return string
      */
-    public function strError(int $errornum): string;
+    public function strError(int $errornum): ?string;
 
     /**
      * @see curl_multi_setopt

@@ -1,4 +1,5 @@
-<?php
+<?php declare(strict_types=1);
+
 namespace PHPCurl\CurlWrapper;
 
 interface CurlShareInterface
@@ -11,7 +12,7 @@ interface CurlShareInterface
     public function init();
 
     /**
-     * @see curl_share_setopt
+     * @see curl_share_setopt()
      *
      * @param int   $opt
      * @param mixed $val

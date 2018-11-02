@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace PHPCurl\CurlWrapper;
 
@@ -57,7 +57,7 @@ class CurlMulti implements CurlMultiInterface
     /**
      * @inheritdoc
      */
-    public function infoRead(int &$msgs = null): array
+    public function infoRead(int &$msgs = null)
     {
         return curl_multi_info_read($this->handle, $msgs);
     }
@@ -65,7 +65,7 @@ class CurlMulti implements CurlMultiInterface
     /**
      * @inheritdoc
      */
-    public function remove(CurlInterface $curl): int
+    public function remove(CurlInterface $curl)
     {
         return curl_multi_remove_handle($this->handle, $curl->getHandle());
     }
@@ -81,7 +81,7 @@ class CurlMulti implements CurlMultiInterface
     /**
      * @inheritdoc
      */
-    public function strError(int $errornum): string
+    public function strError(int $errornum): ?string
     {
         return curl_multi_strerror($errornum);
     }

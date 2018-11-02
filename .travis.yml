@@ -6,11 +6,7 @@ php:
 
 before_script:
   - composer install
-  - test/server_start.sh
 
 script:
   - vendor/bin/phpcs
   - vendor/bin/phpunit
-
-after_script:
-- test/server_stop.sh
