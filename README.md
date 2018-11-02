@@ -4,9 +4,9 @@
 [![Travis Build](https://travis-ci.org/phpcurl/curlwrapper.svg?branch=master)](https://travis-ci.org/phpcurl/curlwrapper)
 [![SensioLabs Insight](https://img.shields.io/sensiolabs/i/f6dd716c-7729-46f2-903f-12a53e427841.svg)](https://insight.sensiolabs.com/projects/f6dd716c-7729-46f2-903f-12a53e427841)
 
-
-The simplest OOP-style wrapper for the standard php curl functions.
-The main purpose is to make code that uses curl calls testable. We do it by injecting the Curl object as a dependency instead of calling curl functions directly.
+The simplest OOP-style wrapper for the standard php curl functions with no external dependencies.
+The main purpose is to make code that uses curl calls testable. 
+We do it by injecting the Curl object as a dependency instead of calling curl functions directly.
 
 
 Hard-coded dependencies. Not testable.
@@ -52,7 +52,7 @@ Via [composer](https://getcomposer.org):
 
 | Classic                          | OOP |
 | ---                              | --- |
-| `$h = curl_init($url)`           | `$curl = new Curl($url)` or `$curl->init($url)` |
+| `$h = curl_init($url)`           | `$curl = new Curl(); $curl->init($url)` |
 | `curl_close($h)`                 | `unset($curl)` |
 | `$e = curl_errno($h)`            | `$e = $curl->errno()` |
 | `$e = curl_error($h)`            | `$e = $curl->error()` |
@@ -71,7 +71,7 @@ Via [composer](https://getcomposer.org):
 
 | Classic                                    | OOP |
 | ---                                        | --- |
-| `curl_multi_init()`                        |   `$cm = new CurlMulti()` |
+| `curl_multi_init()`                        |   `$cm = new CurlMulti(); $cm->init()` |
 | `curl_multi_close($h)`                     |   `unset($cm)` |
 | `$i = curl_multi_add_handle($mh, $ch)`     |   `$i = $cm->add($curl)` |
 | `$i = curl_multi_remove_handle($mh, $ch)`  |   `$i = $cm->remove($curl)` |
@@ -85,6 +85,6 @@ Via [composer](https://getcomposer.org):
 
 | Classic                                  | OOP |
 | ---                                      | --- |
-| `curl_share_init()`                      |   `$cs = new CurlShare()` |
+| `curl_share_init()`                      |   `$cs = new CurlShare(); $cs->init()` |
 | `curl_share_close($h)`                   |   `unset($cs)` |
 | `$r = curl_multi_setopt($h, $opt, $val)` |   `$r = $cs->setOpt($opt, $val)` |

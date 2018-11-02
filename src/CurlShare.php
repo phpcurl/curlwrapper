@@ -1,4 +1,5 @@
-<?php
+<?php declare(strict_types=1);
+
 namespace PHPCurl\CurlWrapper;
 
 class CurlShare implements CurlShareInterface
@@ -7,11 +8,6 @@ class CurlShare implements CurlShareInterface
      * @var resource
      */
     private $handle;
-
-    public function __construct()
-    {
-        $this->init();
-    }
 
     /**
      * @inheritdoc

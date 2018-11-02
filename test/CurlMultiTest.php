@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace PHPCurl\CurlWrapper;
 
@@ -36,7 +36,7 @@ function curl_multi_strerror($c)
 
 function curl_multi_select($h, $t)
 {
-    return $h === 'foo' ? $t : 0.0;
+    return 42;
 }
 
 function curl_multi_close($h)
@@ -68,16 +68,16 @@ class CurlMultiTest extends TestCase
             ->will($this->returnValue('bar'));
 
         $cm = new CurlMulti();
+        $cm->init();
         $this->assertEquals('foo', $cm->getHandle());
         $this->assertTrue($cm->setOpt(0, 'val'));
         $this->assertEquals(1, $cm->add($c));
         $this->assertEquals(1, $cm->remove($c));
         $this->assertEquals('bar', $cm->getContent($c));
-        $this->assertEquals(1, $cm->select());
-        $this->assertEquals(2, $cm->select(2.3));
+        $this->assertEquals(42, $cm->select());
+        $this->assertEquals(42, $cm->select(2.3));
         $this->assertEquals(['foo' => 42], $cm->infoRead($msgs));
         $this->assertEquals(42, $msgs);
-        $running = 0;
         $this->assertEquals(1, $cm->exec($running));
         $this->assertEquals(24, $running);
         $this->assertEquals('strerror_1', $cm->strError(1));

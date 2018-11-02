@@ -1,4 +1,5 @@
-<?php
+<?php declare(strict_types=1);
+
 namespace PHPCurl\CurlWrapper;
 
 class Curl implements CurlInterface
@@ -7,14 +8,6 @@ class Curl implements CurlInterface
      * @var resource
      */
     private $handle;
-
-    /**
-     * @param string $url URL
-     */
-    public function __construct(string $url = null)
-    {
-        $this->init($url);
-    }
 
     /**
      * @inheritdoc
@@ -86,7 +79,7 @@ class Curl implements CurlInterface
     /**
      * @inheritdoc
      */
-    public function strError(int $errornum): string
+    public function strError(int $errornum): ?string
     {
         return curl_strerror($errornum);
     }
@@ -94,7 +87,7 @@ class Curl implements CurlInterface
     /**
      * @inheritdoc
      */
-    public function escape(string $str): string
+    public function escape(string $str)
     {
         return curl_escape($this->handle, $str);
     }
@@ -102,7 +95,7 @@ class Curl implements CurlInterface
     /**
      * @inheritdoc
      */
-    public function unescape(string $str): string
+    public function unescape(string $str)
     {
         return curl_unescape($this->handle, $str);
     }

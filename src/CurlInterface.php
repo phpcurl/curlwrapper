@@ -1,4 +1,5 @@
-<?php
+<?php declare(strict_types=1);
+
 namespace PHPCurl\CurlWrapper;
 
 interface CurlInterface
@@ -43,8 +44,8 @@ interface CurlInterface
     /**
      * @see curl_setopt()
      *
-     * @param int   $option Option code
-     * @param mixed $value  Option value
+     * @param int $option Option code
+     * @param mixed $value Option value
      * @return boolean
      */
     public function setOpt(int $option, $value): bool;
@@ -71,23 +72,23 @@ interface CurlInterface
      * @param int $errornum
      * @return string
      */
-    public function strError(int $errornum): string;
+    public function strError(int $errornum): ?string;
 
     /**
      * @see curl_escape()
      *
      * @param string $str
-     * @return string
+     * @return string|false
      */
-    public function escape(string $str): string;
+    public function escape(string $str);
 
     /**
      * @see curl_unescape()
      *
      * @param string $str
-     * @return string
+     * @return string|false
      */
-    public function unescape(string $str): string;
+    public function unescape(string $str);
 
     /**
      * @see curl_reset()
