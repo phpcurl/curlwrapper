@@ -9,11 +9,6 @@ class CurlShare implements CurlShareInterface
      */
     private $handle;
 
-    public function __construct()
-    {
-        $this->init();
-    }
-
     /**
      * @inheritdoc
      */

@@ -10,14 +10,6 @@ class Curl implements CurlInterface
     private $handle;
 
     /**
-     * @param string $url URL
-     */
-    public function __construct(string $url = null)
-    {
-        $this->init($url);
-    }
-
-    /**
      * @inheritdoc
      */
     public function init(string $url = null)

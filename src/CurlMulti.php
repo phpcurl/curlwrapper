@@ -9,11 +9,6 @@ class CurlMulti implements CurlMultiInterface
      */
     private $handle;
 
-    public function __construct()
-    {
-        $this->init();
-    }
-
     /**
      * @inheritdoc
      */

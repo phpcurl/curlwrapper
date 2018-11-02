@@ -26,6 +26,7 @@ class CurlShareTest extends TestCase
     public function testAll()
     {
         $c = new CurlShare();
+        $c->init();
         $this->assertTrue($c->setOpt(0, 'val'));
         unset($c);
         $this->assertEquals('close_foo', array_pop(self::$log));

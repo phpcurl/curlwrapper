@@ -97,7 +97,8 @@ class CurlTest extends TestCase
 
     public function testAll()
     {
-        $c = new Curl('http://example.com');
+        $c = new Curl();
+        $c->init('http://example.com');
         $this->assertEquals('my_handle', $c->getHandle());
         $this->assertEquals([123], $c->version());
         $this->assertEquals('my_strerror', $c->strError(5));
@@ -183,7 +184,8 @@ class CurlTest extends TestCase
 
     public function testClone()
     {
-        $c = new Curl('http://example.com');
+        $c = new Curl();
+        $c->init('http://example.com');
         $clone = clone($c);
         $this->assertEquals('my_handle_copy', $clone->getHandle());
     }

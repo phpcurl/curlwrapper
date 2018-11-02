@@ -68,6 +68,7 @@ class CurlMultiTest extends TestCase
             ->will($this->returnValue('bar'));
 
         $cm = new CurlMulti();
+        $cm->init();
         $this->assertEquals('foo', $cm->getHandle());
         $this->assertTrue($cm->setOpt(0, 'val'));
         $this->assertEquals(1, $cm->add($c));
